@@ -4,3 +4,5 @@
 # output file
 *.output
 *.out
+output
+*.exe

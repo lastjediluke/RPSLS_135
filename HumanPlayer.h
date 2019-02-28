@@ -2,6 +2,7 @@
 #define HUMANPLAYER_H_
 
 #include <iostream>
+#include "Hands.h"
 
 class HumanPlayer
 {
@@ -13,14 +14,13 @@ public:
         // ties = 0;
         std::cout << "Human Player initialized" <<std::endl;
     }
-
-    // setHand()
+    bool isHand(char key);
+    void setHand(char pickHand);
 private:
     int wins;
     int losses;
     int ties;
-    
-    // hand
+    Hands playerHand;
 };
 
 

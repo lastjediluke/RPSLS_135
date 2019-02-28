@@ -10,7 +10,8 @@ class GameInstance
 {
 public:
     GameInstance();
-    static void startGameLoop();
+    void startGameLoop();
+    bool isValid(char key);
 private:
     ComputerPlayer *cpu;
     HumanPlayer *myPlayer;

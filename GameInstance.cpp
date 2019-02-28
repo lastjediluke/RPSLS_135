@@ -8,6 +8,12 @@ GameInstance::GameInstance()
     startGameLoop();
 }
 
+bool GameInstance::isValidHand(char key)
+{
+    if (myPlayer->isHand(key)) return true;
+    else return false;
+}
+
 void GameInstance::startGameLoop()
 {
     std::cout << "Game Loop Started" << std::endl;
@@ -19,7 +25,8 @@ void GameInstance::startGameLoop()
         std::cout << "Press 'p' to play" << std::endl;
         std::cout << "Press 'q' to quit" << std::endl;
         std::cout << "Press 'l' to show leaderboard" << std::endl;
-        std::cin >> userInput;
+        std::cin >> userInput;                  // I should also validate here too
+
         switch(userInput)
         {
             case 'p':
@@ -37,10 +44,17 @@ void GameInstance::startGameLoop()
                 std::cout << "Press 's' to pick scissors" << std::endl;
                 std::cout << "Press 'l' to pick lizard" << std::endl;
                 std::cout << "Press 'v' to pick spock" << std::endl;
-                std::cin >> handInput;
-                std::cout << "You picked " << handInput << "!" << std::endl;
+                while(1)
+                {
+                    std::cin >> handInput;
+
+                    // check for invalid inputs
+                    if (isValidHand(handInput)) break;
+                    else continue;
+                    
+                }
                 // cpu.setHand()
-                // myPlayer.setHand()
+                myPlayer->setHand(handInput);
                 // showWinner() should be a static func from Hands class
                 break;
             }

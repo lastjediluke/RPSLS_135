@@ -4,6 +4,7 @@
 #include <iostream>
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
+#include <string>
 
 
 class GameInstance
@@ -11,7 +12,7 @@ class GameInstance
 public:
     GameInstance();
     void startGameLoop();
-    bool isValid(char key);
+    bool isValidHand(char key);
 private:
     ComputerPlayer *cpu;
     HumanPlayer *myPlayer;

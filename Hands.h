@@ -2,6 +2,10 @@
 #define HANDS_H_
 
 #include <iostream>
+#include <vector>
+#include <stdlib.h>
+#include <cstdlib>
+#include <map>
 
 class Hands 
 {
@@ -14,40 +18,40 @@ public:
         lizard,
         spock
     };
+    std::vector<handType> v;
+    map < handType, std::vector<handType> > winnersMap =
+    {
+        {rock, v { scissors, lizard }},
+        {paper, v { scissors, lizard }},
+        {scissors, v { scissors, lizard }},
+        {rock, v { scissors, lizard }},
+        {rock, v { scissors, lizard }},
+    };
+    
     
 private:
     handType myHand;
 
 public:
     Hands(){}
-    handType getWinner(handType a, handType b){}
-    void setHand(char h)
-    {
-        std::cout << "Setting hand..." << std::endl;
-        switch(h)
-        {
-            case 'r' : myHand = rock; std::cout << "You picked Rock!" <<std::endl; break;
-            case 'p' : myHand = paper; std::cout << "You picked Paper!" <<std::endl; break;
-            case 's' : myHand = scissors; std::cout << "You picked Scissors!" <<std::endl; break;
-            default: std::cout << "Sorry, that is not a hand" <<std::endl;
-        }
-    }
-    bool isHand(char key)
-    {
-        std::cout << "Validating Hand..." << std::endl;
-        bool valid = false;
-        switch(key)
-        {
-            case 'r' : valid = true; break;
-            case 'p' : valid = true; break;
-            case 's' : valid = true; break;
-            default: std::cout << "Sorry, that is not a hand" << std::endl; valid = false;
-        } 
-        return valid;
-    }
-
+    handType getWinner(handType a, handType b);
+    void setHand(char h);
+    bool isHand(char key);
+    handType getHand() { return myHand; }
+    bool initWinnerMap();
+    
 };
 
 #endif
 
 
+// std::multimap<handType, handType> winnersMap =
+// {
+// 		{scissors, lizard},
+// 		{rock, spock},
+//         {scissors, lizard},
+//         {scissors, lizard},
+//         {scissors, lizard},
+// };
+
+// vector<int> vect1{ 10, 20, 30 }; 

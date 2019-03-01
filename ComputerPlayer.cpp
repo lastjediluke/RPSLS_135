@@ -7,13 +7,28 @@ ComputerPlayer::ComputerPlayer()
     ties = 0;
 }
 
+void ComputerPlayer::getScore()
+{
+    std::cout << "CPU Wins: " << wins << "; Losses: " << losses << "; Ties " << ties << std::endl;
+}
+
 void ComputerPlayer::setHand()
 {
     // set random hand
     srand ( time(NULL) ); //initialize the random seed
-    const char arrayNum[5] = {'r', 'p', 's', 'l', 'v'};
-    int RandIndex = rand() % 5; //generates a random number between 0 and 4
-    std::cout << "CPU picked " << arrayNum[RandIndex] << std::endl;
+    const char arrayNum[3] = {'r', 'p', 's'};
+    int RandIndex = rand() % 3; //generates a random number between 0 and 4
+    // std::cout << "CPU picked " << arrayNum[RandIndex] << std::endl;
     cpuHand.setHand(arrayNum[RandIndex]);
+}
+
+int ComputerPlayer::setScore(int sc)
+{
+    switch (sc)
+    {
+        case 0: ties++; break;
+        case 1: wins++; break;
+        case -1: losses++; break;
+    }
 }
 

@@ -9,13 +9,16 @@ class HumanPlayer
 public:
     HumanPlayer()
     {
-        // wins = 0;
-        // losses = 0;
-        // ties = 0;
-        std::cout << "Human Player initialized" <<std::endl;
+        wins = 0;
+        losses = 0;
+        ties = 0;
+        std::cout << "Human Player initialized" << std::endl;
     }
     bool isHand(char key);
     void setHand(char pickHand);
+    int setScore(int sc);
+    void getScore();
+    Hands::handType getHand() { return playerHand.getHand(); }
 private:
     int wins;
     int losses;

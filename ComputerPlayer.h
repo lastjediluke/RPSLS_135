@@ -11,6 +11,9 @@ public:
     ComputerPlayer();
 
     void setHand();
+    Hands::handType getHand() { return cpuHand.getHand(); }
+    int setScore(int sc);
+    void getScore();
 private:
     int wins;
     int losses;

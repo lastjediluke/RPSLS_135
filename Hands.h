@@ -16,17 +16,11 @@ public:
         paper,
         scissors,
         lizard,
-        spock
+        spock,
+        tie
     };
     std::vector<handType> v;
-    map < handType, std::vector<handType> > winnersMap =
-    {
-        {rock, v { scissors, lizard }},
-        {paper, v { scissors, lizard }},
-        {scissors, v { scissors, lizard }},
-        {rock, v { scissors, lizard }},
-        {rock, v { scissors, lizard }},
-    };
+    std::map < handType, std::vector<handType> > winnersMap;
     
     
 private:
@@ -34,7 +28,7 @@ private:
 
 public:
     Hands(){}
-    handType getWinner(handType a, handType b);
+    static handType getWinner(handType a, handType b);
     void setHand(char h);
     bool isHand(char key);
     handType getHand() { return myHand; }

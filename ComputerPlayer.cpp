@@ -9,7 +9,7 @@ ComputerPlayer::ComputerPlayer()
 
 void ComputerPlayer::getScore()
 {
-    std::cout << "CPU Wins: " << wins << "; Losses: " << losses << "; Ties " << ties << std::endl;
+    std::cout << "CPU Wins: " << wins << "; Losses: " << losses << "; Ties: " << ties << std::endl;
 }
 
 void ComputerPlayer::setHand()
@@ -22,7 +22,7 @@ void ComputerPlayer::setHand()
     cpuHand.setHand(arrayNum[RandIndex]);
 }
 
-int ComputerPlayer::setScore(int sc)
+void ComputerPlayer::setScore(int sc)
 {
     switch (sc)
     {

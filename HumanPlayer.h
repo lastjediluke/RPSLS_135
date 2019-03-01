@@ -16,7 +16,7 @@ public:
     }
     bool isHand(char key);
     void setHand(char pickHand);
-    int setScore(int sc);
+    void setScore(int sc);
     void getScore();
     Hands::handType getHand() { return playerHand.getHand(); }
 private:

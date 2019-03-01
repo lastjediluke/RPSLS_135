@@ -15,12 +15,16 @@ public:
     void startGameLoop();
     bool isValidHand(char key);
     void updateScore(Hands::handType winner);
-    int gameCount;
+    int getRoundCount()     { return roundCount;    }
+    int getGameCount()      { return gameCount;     }
+    int setRoundCount()     { return roundCount++;  }
+    int setGameCount()      { return gameCount++;   }
+    int resetRoundCount()   { roundCount = 0; return roundCount; }
 private:
     ComputerPlayer *cpu;
     HumanPlayer *myPlayer;
-
-
+    int roundCount;
+    int gameCount;
 };
 
 

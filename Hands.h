@@ -19,8 +19,8 @@ public:
         spock,
         tie
     };
-    std::vector<handType> v;
-    std::map < handType, std::vector<handType> > winnersMap;
+    // std::vector<handType> v;
+    // std::map < handType, std::vector<handType> > winnersMap;
     
     
 private:
@@ -32,7 +32,7 @@ public:
     void setHand(char h);
     bool isHand(char key);
     handType getHand() { return myHand; }
-    bool initWinnerMap();
+    // bool initWinnerMap();
     
 };
 

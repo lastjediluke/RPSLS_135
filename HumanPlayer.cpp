@@ -13,10 +13,10 @@ bool HumanPlayer::isHand(char key)
 
 void HumanPlayer::getScore()
 {
-    std::cout << "Your Wins: " << wins << "; Losses: " << losses << "; Ties " << ties << std::endl;
+    std::cout << "Your Wins: " << wins << "; Losses: " << losses << "; Ties: " << ties << std::endl;
 }
 
-int HumanPlayer::setScore(int sc)
+void HumanPlayer::setScore(int sc)
 {
     switch (sc)
     {

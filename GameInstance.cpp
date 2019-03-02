@@ -47,6 +47,10 @@ void GameInstance::startGameLoop()
     std::string handInput;
     std::cout << '\n';
     bool quit = false;
+    std::cout << "Here's how you play: " << std::endl;
+    std::cout << "Rock beats SCISSORS" << std::endl;
+    std::cout << "Paper beats ROCK" << std::endl;
+    std::cout << "Scissors beats PAPER" << std::endl;
 
     do
     {
@@ -81,13 +85,9 @@ void GameInstance::startGameLoop()
         // std::cin >> userInput;                  
 
         std::cout << "It's Gametime!" << std::endl;
-        std::cout << "Here's how you play: " << std::endl;
-        std::cout << "Rock beats SCISSORS" << std::endl;
-        std::cout << "Paper beats ROCK" << std::endl;
-        std::cout << "Scissors beats PAPER" << std::endl;
         // std::cout << "Lizard beats PAPER and SPOCK" << std::endl;
         // std::cout << "Spock beats ROCK and SCISSORS" << std::endl;
-        std::cout << '\n';
+        
         std::cout << "Press 'r' to pick rock" << std::endl;
         std::cout << "Press 'p' to pick paper" << std::endl;
         std::cout << "Press 's' to pick scissors" << std::endl;

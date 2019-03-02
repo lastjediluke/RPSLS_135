@@ -20,7 +20,8 @@
 1. make sure you have a cloned repo on your computer
 2. get a terminal open and cd to the directory where the repo is
 3. checkout from your branch name
-For example, Luke's branch would be: `git checkout -b luke`
+- For example, Luke's branch would be: `git checkout -b luke`
+- note that `-b` creates a new branch on your computer
 4. get the latest code onto your machine
 `git pull origin master`
 - sometimes you have to stash changes: `git stash` then do step 4 again

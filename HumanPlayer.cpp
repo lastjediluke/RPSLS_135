@@ -1,9 +1,10 @@
 #include "HumanPlayer.h"
 
-void HumanPlayer::setHand(char pickHand)
+char HumanPlayer::setHand(char pickHand)
 {
     // calls setHand() within the Hands class
     playerHand.setHand(pickHand);
+    return pickHand;
 }
 
 bool HumanPlayer::isHand(char key)

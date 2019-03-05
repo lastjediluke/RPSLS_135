@@ -1,5 +1,5 @@
 #include "GameInstance.h"
-#include <iostream>
+
 
 GameInstance::GameInstance()
 {
@@ -7,6 +7,7 @@ GameInstance::GameInstance()
     myPlayer = new HumanPlayer();
     roundCount = 0;
     gameCount = 0;
+    pattern = "";
     startGameLoop();
 }
 
@@ -39,6 +40,25 @@ void GameInstance::updateScore(Hands::handType winner)
     // myPlayer->getScore();
     // cpu->getScore();
 }
+
+void GameInstance::recordHand(char a, int round)
+{
+    // get last n hands as chars
+    // std::inputStr = "";
+    // inputStr += a;
+    // inputStr += b;
+    if (round % 3 == 0)
+    {
+        std::cout << "Predict time!" << std::endl;
+    }
+    pattern += a;
+    // pattern += b;
+
+    std::ofstream ofs;
+    ofs.open ("ml.txt", std::ofstream::out | std::ofstream::app);
+    ofs << a;
+    ofs.close();
+    }
 
 void GameInstance::startGameLoop()
 {
@@ -98,12 +118,15 @@ void GameInstance::startGameLoop()
             std::cin >> handInput;
             if (isValidHand(handInput[0])) break;   // check for invalid inputs
         }
-        std::cout << "CPU picked ";
-        cpu->setHand();
         std::cout << "You picked ";
-        myPlayer->setHand(handInput[0]);
+        char playerChar = myPlayer->setHand(handInput[0]);
+        recordHand(playerChar, getRoundCount());
+        std::cout << "CPU picked ";
+        char cpuChar = cpu->setHand();
+        recordHand(cpuChar, getRoundCount());
         Hands::handType win = Hands::getWinner(myPlayer->getHand(), cpu->getHand());
         updateScore(win);
+        
 
     } while (!quit);
     std::cout << "You have now quit the game" << std::endl;

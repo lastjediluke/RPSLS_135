@@ -10,7 +10,7 @@ class ComputerPlayer
 public:
     ComputerPlayer();
 
-    void setHand();
+    char setHand();
     Hands::handType getHand() { return cpuHand.getHand(); }
     void setScore(int sc);
     void getScore();

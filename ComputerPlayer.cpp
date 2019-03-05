@@ -12,7 +12,7 @@ void ComputerPlayer::getScore()
     std::cout << "CPU Wins: " << wins << "; Losses: " << losses << "; Ties: " << ties << std::endl;
 }
 
-void ComputerPlayer::setHand()
+char ComputerPlayer::setHand()
 {
     // set random hand
     srand ( time(NULL) ); //initialize the random seed
@@ -20,6 +20,7 @@ void ComputerPlayer::setHand()
     int RandIndex = rand() % 3; //generates a random number between 0 and 4
     // std::cout << "CPU picked " << arrayNum[RandIndex] << std::endl;
     cpuHand.setHand(arrayNum[RandIndex]);
+    return arrayNum[RandIndex];
 }
 
 void ComputerPlayer::setScore(int sc)

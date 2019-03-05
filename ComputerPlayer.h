@@ -4,13 +4,14 @@
 #include "Hands.h"
 #include <stdlib.h>
 #include <time.h>
+#include <string>
 
 class ComputerPlayer
 {
 public:
     ComputerPlayer();
 
-    char setHand();
+    char setHand(std::string s);
     Hands::handType getHand() { return cpuHand.getHand(); }
     void setScore(int sc);
     void getScore();

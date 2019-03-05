@@ -41,23 +41,26 @@ void GameInstance::updateScore(Hands::handType winner)
     // cpu->getScore();
 }
 
-void GameInstance::recordHand(char a, int round)
+std::string GameInstance::recordHand(char a, int round)
 {
-    // get last n hands as chars
-    // std::inputStr = "";
-    // inputStr += a;
-    // inputStr += b;
+    
     if (round % 3 == 0)
     {
-        std::cout << "Predict time!" << std::endl;
+        std::cout << "Prediction time!" << std::endl;
+        std::string temp = pattern;
+        
+        // clear the pattern
+        pattern = "";
+        return temp;
     }
     pattern += a;
-    // pattern += b;
+    
 
-    std::ofstream ofs;
-    ofs.open ("ml.txt", std::ofstream::out | std::ofstream::app);
-    ofs << a;
-    ofs.close();
+    // std::ofstream ofs;
+    // ofs.open ("ml.txt", std::ofstream::out | std::ofstream::app);
+    // ofs << a;
+    // ofs.close();
+        return pattern;
     }
 
 void GameInstance::startGameLoop()
@@ -71,7 +74,7 @@ void GameInstance::startGameLoop()
     std::cout << "Rock beats SCISSORS" << std::endl;
     std::cout << "Paper beats ROCK" << std::endl;
     std::cout << "Scissors beats PAPER" << std::endl;
-
+    std::string getPattern = "";
     do
     {
         setRoundCount();
@@ -120,10 +123,12 @@ void GameInstance::startGameLoop()
         }
         std::cout << "You picked ";
         char playerChar = myPlayer->setHand(handInput[0]);
-        recordHand(playerChar, getRoundCount());
+        getPattern = recordHand(playerChar, getRoundCount());
         std::cout << "CPU picked ";
-        char cpuChar = cpu->setHand();
-        recordHand(cpuChar, getRoundCount());
+
+        // Luke modified setHand
+        char cpuChar = cpu->setHand(getPattern);
+        getPattern = recordHand(cpuChar, getRoundCount());
         Hands::handType win = Hands::getWinner(myPlayer->getHand(), cpu->getHand());
         updateScore(win);
         
@@ -131,3 +136,17 @@ void GameInstance::startGameLoop()
     } while (!quit);
     std::cout << "You have now quit the game" << std::endl;
 }
+
+/* To DO
+
+1. Record Hands as chars
+2. Store chars into a string
+3. return the string to the cpu setHand func
+4. cpu setHand will check the size of the string
+    a. if the size == 5, then we will check the txt file for a match
+    b. if we find a match, we will pick that hand
+
+We also need to figure out how to change n(frequency)
+
+
+*/

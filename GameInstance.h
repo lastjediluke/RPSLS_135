@@ -6,6 +6,7 @@
 #include "ComputerPlayer.h"
 #include <string>
 #include "Hands.h"
+#include <fstream>
 
 
 class GameInstance
@@ -21,12 +22,13 @@ public:
     int incRoundCount()     { return roundCount++;  }
     int incGameCount()      { return gameCount++;   }
     int resetRoundCount()   { roundCount = 0; return roundCount; }
+    std::string recordHand(char a, int n);
+    std::string pattern;
 private:
     ComputerPlayer *cpu;
     HumanPlayer *myPlayer;
     int roundCount;
     int gameCount;
-    const int gameTime = 21;
 };
 
 

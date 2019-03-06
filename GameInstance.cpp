@@ -1,5 +1,5 @@
 #include "GameInstance.h"
-#include <iostream>
+
 
 GameInstance::GameInstance()
 {
@@ -7,6 +7,7 @@ GameInstance::GameInstance()
     myPlayer = new HumanPlayer();
     roundCount = 0;
     gameCount = 0;
+    pattern = "";
     startGameLoop();
 }
 
@@ -40,6 +41,25 @@ void GameInstance::updateScore(Hands::handType winner)
     // cpu->getScore();
 }
 
+std::string GameInstance::recordHand(char a, int patternSize)
+{
+    
+    if (pattern.length() == patternSize)
+    {
+        
+        std::string temp = pattern;
+        // std::cout << "Pattern is: " << pattern << std::endl;
+        cpu->toTextFile(pattern);
+
+        // clear the pattern
+        pattern = "";
+        return temp;
+    }
+    pattern += a;
+    
+    return pattern;
+    }
+
 void GameInstance::startGameLoop()
 {
     std::cout << "Game Loop Started" << std::endl;
@@ -51,7 +71,7 @@ void GameInstance::startGameLoop()
     std::cout << "Rock beats SCISSORS" << std::endl;
     std::cout << "Paper beats ROCK" << std::endl;
     std::cout << "Scissors beats PAPER" << std::endl;
-
+    std::string getPattern = "";
     do
     {
         setRoundCount();
@@ -98,13 +118,65 @@ void GameInstance::startGameLoop()
             std::cin >> handInput;
             if (isValidHand(handInput[0])) break;   // check for invalid inputs
         }
-        std::cout << "CPU picked ";
-        cpu->setHand();
         std::cout << "You picked ";
-        myPlayer->setHand(handInput[0]);
+        char playerChar = myPlayer->setHand(handInput[0]);
+        getPattern = recordHand(playerChar, 5);
+        std::cout << "CPU picked " << std::endl;
+
+        // Luke modified setHand
+        char cpuChar = cpu->setHand(getPattern, 5);
+        getPattern = recordHand(cpuChar, 5);
         Hands::handType win = Hands::getWinner(myPlayer->getHand(), cpu->getHand());
         updateScore(win);
+        
 
     } while (!quit);
     std::cout << "You have now quit the game" << std::endl;
 }
+
+/* To DO
+
+1. Record Hands as chars
+2. Store chars into a string
+3. return the string to the cpu setHand func
+4. cpu setHand will check the size of the string
+    a. if the size == 5, then we will check the txt file for a match
+    b. if we find a match, we will pick that hand
+
+We also need to figure out how to change n(frequency)
+
+
+*/
+
+/*
+    rrrrr:3
+    rpsrs:1
+    rpppp:1
+
+
+*/
+
+/*
+
+functions
+
+GameInstance.cpp
+recordHand()
+- add to the pattern until n == 5
+
+
+ComputerPlayer.cpp
+bool inFile()
+- read txt file into a string and look for a match
+
+insertNewPattern()
+- append the new pattern to the text file
+
+increment()
+- increase pattern frequency
+
+
+chooserFactory class
+
+
+*/

@@ -6,6 +6,7 @@
 #include "ComputerPlayer.h"
 #include <string>
 #include "Hands.h"
+#include <fstream>
 
 
 class GameInstance
@@ -20,11 +21,14 @@ public:
     int setRoundCount()     { return roundCount++;  }
     int setGameCount()      { return gameCount++;   }
     int resetRoundCount()   { roundCount = 0; return roundCount; }
+    std::string recordHand(char a, int patternSize);
+    std::string pattern;
 private:
     ComputerPlayer *cpu;
     HumanPlayer *myPlayer;
     int roundCount;
     int gameCount;
+    
 };
 
 

@@ -21,7 +21,7 @@ void Hands::setHand(char h)
 
 bool Hands::isHand(char key)
 {
-    std::cout << "Validating Hand..." << std::endl;
+    // std::cout << "Validating Hand..." << std::endl;
         bool valid = false;
         switch(key)
         {

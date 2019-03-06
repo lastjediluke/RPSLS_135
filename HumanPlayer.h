@@ -15,7 +15,7 @@ public:
         std::cout << "Human Player initialized" << std::endl;
     }
     bool isHand(char key);
-    void setHand(char pickHand);
+    char setHand(char pickHand);
     void setScore(int sc);
     void getScore();
     Hands::handType getHand() { return playerHand.getHand(); }

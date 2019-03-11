@@ -21,7 +21,7 @@ public:
     int setRoundCount()     { return roundCount++;  }
     int setGameCount()      { return gameCount++;   }
     int resetRoundCount()   { roundCount = 0; return roundCount; }
-    std::string recordHand(char a, int n);
+    std::string recordHand(char a, int patternSize);
     std::string pattern;
 private:
     ComputerPlayer *cpu;

@@ -22,18 +22,21 @@ void GameInstance::updateScore(Hands::handType winner)
     if (winner == Hands::tie)
     {
         std::cout << "Tie game This Round!" << std::endl;
+        std::cout << "" << std::endl;
         myPlayer->setScore(0);
         cpu->setScore(0);
     }
     else if (myPlayer->getHand() == winner)
     {
         std::cout << "You Win This Round!" << std::endl;
+        std::cout << "" << std::endl;
         myPlayer->setScore(1);
         cpu->setScore(-1);
     }
     else
     {
         std::cout << "Computer Wins This Round!" << std::endl;
+        std::cout << "" << std::endl;
         myPlayer->setScore(-1);
         cpu->setScore(1);
     }
@@ -41,26 +44,25 @@ void GameInstance::updateScore(Hands::handType winner)
     // cpu->getScore();
 }
 
-std::string GameInstance::recordHand(char a, int round)
+std::string GameInstance::recordHand(char a, int patternSize)
 {
     
-    if (round % 3 == 0)
+    if (pattern.length() == patternSize)
     {
-        std::cout << "Prediction time!" << std::endl;
-        std::string temp = pattern;
         
+        std::string temp = pattern;
+        //std::cout << "Pattern is: " << pattern << std::endl;
+        cpu->toTextFile(pattern);
+
         // clear the pattern
         pattern = "";
         return temp;
     }
-    pattern += a;
-    
 
-    // std::ofstream ofs;
-    // ofs.open ("ml.txt", std::ofstream::out | std::ofstream::app);
-    // ofs << a;
-    // ofs.close();
-        return pattern;
+    pattern += a;
+// std::cout << "Pattern is: " << pattern << std::endl;
+
+    return pattern;
     }
 
 void GameInstance::startGameLoop()
@@ -123,12 +125,14 @@ void GameInstance::startGameLoop()
         }
         std::cout << "You picked ";
         char playerChar = myPlayer->setHand(handInput[0]);
-        getPattern = recordHand(playerChar, getRoundCount());
+        getPattern = recordHand(playerChar, 5);
         std::cout << "CPU picked ";
 
         // Luke modified setHand
-        char cpuChar = cpu->setHand(getPattern);
-        getPattern = recordHand(cpuChar, getRoundCount());
+        char cpuChar = cpu->setHand(getPattern, 5);
+        getPattern = recordHand(cpuChar, 5);
+        std::cout << "Pattern: " << getPattern << std::endl;
+        cpu->setHand(getPattern, 5);
         Hands::handType win = Hands::getWinner(myPlayer->getHand(), cpu->getHand());
         updateScore(win);
         
@@ -147,6 +151,39 @@ void GameInstance::startGameLoop()
     b. if we find a match, we will pick that hand
 
 We also need to figure out how to change n(frequency)
+
+
+*/
+
+/*
+    rrrrr:3
+    rpsrs:1
+    rpppp:1
+
+
+*/
+
+/*
+
+functions
+
+GameInstance.cpp
+recordHand()
+- add to the pattern until n == 5
+
+
+ComputerPlayer.cpp
+bool inFile()
+- read txt file into a string and look for a match
+
+insertNewPattern()
+- append the new pattern to the text file
+
+increment()
+- increase pattern frequency
+
+
+chooserFactory class
 
 
 */

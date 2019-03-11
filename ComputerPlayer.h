@@ -5,16 +5,24 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 class ComputerPlayer
 {
 public:
     ComputerPlayer();
 
-    char setHand(std::string s);
+    char setHand(std::string s, int patternLen);
     Hands::handType getHand() { return cpuHand.getHand(); }
     void setScore(int sc);
     void getScore();
+
+    // new funcs for Assignment 4
+    void insertNewPattern(std::string s);
+    void increasePatternFreq(std::string s);
+    void toTextFile(std::string s);
+    int strToInt(std::string line);
 private:
     int wins;
     int losses;

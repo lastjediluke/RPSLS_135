@@ -4,5 +4,12 @@
 class ChooserFactory
 {
 public:
+<<<<<<< HEAD
     
 };
+=======
+    chooser createChooser(string);
+};
+
+#endif
+>>>>>>> master

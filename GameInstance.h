@@ -14,6 +14,7 @@ class GameInstance
 public:
     GameInstance();
     void startGameLoop();
+    void printInstructions();
     bool isValidHand(char key);
     void updateScore(Hands::handType winner);
     int getRoundCount()     { return roundCount;    }

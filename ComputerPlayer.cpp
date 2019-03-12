@@ -79,7 +79,7 @@ void ComputerPlayer::toTextFile(std::string s)
 
             // send to new file
             fout << s << ":" << std::to_string(newFreq) << std::endl;
-            std::cout << line << std::endl;
+            // std::cout << line << std::endl;
         }
 
         else
@@ -187,7 +187,7 @@ char ComputerPlayer::setHand(std::string s, int patternLen)
         int RandIndex = rand() % 3; //generates a random number between 0 and 4
         // std::cout << "CPU picked " << arrayNum[RandIndex] << std::endl;
         cpuHand.setHand(arrayNum[1]);
-        return arrayNum[1]; //change to random later
+        return arrayNum[RandIndex]; //change to random later
     }
     
 }

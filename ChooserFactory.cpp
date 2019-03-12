@@ -1,19 +1,8 @@
-#include <iostream>
-#include <string>
-#include <stdio.h>   
+  
 #include "ChooserFactory.h" 
 
-ChooserFactory::createChooser(string ChooserID)
+Chooser *ChooserFactory::make_chooser(std::string which)
 {
-	if (ChooserID == "ML") {
-		return Chooser_ML();
-	}
-	else if (ChooserID == "Random") 
-	{
-		return Chooser_Rand();
-	}
-	else 
-	{
-		return void;
-	}
+	if (which == "smart") return new Chooser_ML();
+	else return new Chooser_Rand();
 }

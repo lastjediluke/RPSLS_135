@@ -3,8 +3,7 @@
 
 GameInstance::GameInstance()
 {
-    cpu = new ComputerPlayer();
-    myPlayer = new HumanPlayer();
+    // moved cpu and player down into gameloop
     roundCount = 0;
     gameCount = 0;
     pattern = "";
@@ -86,11 +85,18 @@ void GameInstance::startGameLoop()
     std::string handInput;
     std::cout << '\n';
     bool quit = false;
+    char randOrSmart;
+
     std::cout << "Here's how you play: " << std::endl;
     std::cout << "Rock beats SCISSORS" << std::endl;
     std::cout << "Paper beats ROCK" << std::endl;
     std::cout << "Scissors beats PAPER" << std::endl;
     std::string getPattern = "";
+    std::cout << "Would you like the CPU to pick randomly or use machine learning?" << std::endl;
+    std::cout << "Press m for machine learning and any other key for random" << std::endl;
+    std::cin >> randOrSmart;
+    cpu = new ComputerPlayer(randOrSmart);
+    myPlayer = new HumanPlayer();
     do
     {
         setRoundCount();
@@ -143,10 +149,10 @@ void GameInstance::startGameLoop()
         std::cout << "CPU picked ";
 
         // Luke modified setHand
-        char cpuChar = cpu->setHand(getPattern, 5);
+        char cpuChar = cpu->setHand(getPattern, 5, randOrSmart);
         getPattern = recordHand(cpuChar, 5);
         std::cout << "Pattern: " << getPattern << std::endl;
-        cpu->setHand(getPattern, 5);
+        // cpu->setHand(getPattern, 5, randOrSmart);
         Hands::handType win = Hands::getWinner(myPlayer->getHand(), cpu->getHand());
         updateScore(win);
         

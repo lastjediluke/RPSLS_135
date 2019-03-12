@@ -1,11 +1,18 @@
 #include "ComputerPlayer.h"
 
 
-ComputerPlayer::ComputerPlayer()
+ComputerPlayer::ComputerPlayer(char randOrSmart)
 {
     wins = 0;
     losses = 0;
     ties = 0;
+    if (randOrSmart == 'm')
+    {
+        chooser = ChooserFactory::make_chooser("smart");
+    }
+
+    else chooser = ChooserFactory::make_chooser("random");
+    
 }
 
 void ComputerPlayer::getScore()
@@ -103,7 +110,7 @@ void ComputerPlayer::toTextFile(std::string s)
     fin.close(); 
 }
 
-char ComputerPlayer::setHand(std::string s, int patternLen)
+char ComputerPlayer::setHand(std::string s, int patternLen, char difficulty)
 {
     std::ifstream myfile ("test.txt");
     std::string line;
@@ -111,10 +118,10 @@ char ComputerPlayer::setHand(std::string s, int patternLen)
     bool found = false;
     int bigFreq = 1;
     std::string bigString;
-    
-    
     const char arrayNum[3] = {'r', 'p', 's'};
-                                            // should be s.length() == patternLen - 1
+    
+
+                                   
     if (s.length() == patternLen -1)  // set to false for now, so it always makes a random choice
     {
         std::cout << "Ping!" << std::endl;
@@ -178,6 +185,7 @@ char ComputerPlayer::setHand(std::string s, int patternLen)
                 // make a prediction
                 // Derick's code will go here
     }
+    
 
     // else we will pick a random one
     else

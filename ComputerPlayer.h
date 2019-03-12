@@ -7,13 +7,15 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include "Chooser.h"
+#include "ChooserFactory.h"
 
 class ComputerPlayer
 {
 public:
-    ComputerPlayer();
+    ComputerPlayer(char randOrSmart);
 
-    char setHand(std::string s, int patternLen);
+    char setHand(std::string s, int patternLen, char difficulty);
     Hands::handType getHand() { return cpuHand.getHand(); }
     void setScore(int sc);
     void getScore();
@@ -28,6 +30,7 @@ private:
     int losses;
     int ties;
     Hands cpuHand;
+    Chooser *chooser;
 };
 
 

@@ -11,6 +11,21 @@ GameInstance::GameInstance()
     startGameLoop();
 }
 
+void GameInstance::printInstructions()
+{
+    // std::cout << "Press 'p' to play" << std::endl;
+    // std::cout << "Press 'q' to quit" << std::endl;
+    // std::cout << "Press 'l' to show leaderboard" << std::endl;
+    // std::cin >> userInput;                  
+    std::cout << "It's Gametime!" << std::endl;
+    std::cout << "Here's how you play: " << std::endl;
+    std::cout << "Rock beats SCISSORS" << std::endl;
+    std::cout << "Paper beats ROCK" << std::endl;
+    std::cout << "Scissors beats PAPER" << std::endl;
+    // std::cout << "Lizard beats PAPER and SPOCK" << std::endl;
+    // std::cout << "Spock beats ROCK and SCISSORS" << std::endl;
+}
+
 bool GameInstance::isValidHand(char key)
 {
     if (myPlayer->isHand(key)) return true;
@@ -22,18 +37,21 @@ void GameInstance::updateScore(Hands::handType winner)
     if (winner == Hands::tie)
     {
         std::cout << "Tie game This Round!" << std::endl;
-        myPlayer->setScore(0);
-        cpu->setScore(0);
+        // calling the setScore() methods are unnecessary 
+        //myPlayer->setScore(0);
+        //cpu->setScore(0);
     }
     else if (myPlayer->getHand() == winner)
     {
         std::cout << "You Win This Round!" << std::endl;
+        // increase player score by 1, decrease CPU score by 1
         myPlayer->setScore(1);
         cpu->setScore(-1);
     }
     else
     {
         std::cout << "Computer Wins This Round!" << std::endl;
+        // decrease player score by 1, increase CPU score by 1
         myPlayer->setScore(-1);
         cpu->setScore(1);
     }
@@ -74,8 +92,9 @@ void GameInstance::startGameLoop()
     std::string getPattern = "";
     do
     {
-        setRoundCount();
-        if(getRoundCount() == 21)
+        incRoundCount();
+        // if the user has played X rounds, offer to quit the game
+        if(getRoundCount() == gameTime)
         {
             std::cout << "Game Over!" << std::endl;
             myPlayer->getScore();
@@ -99,15 +118,7 @@ void GameInstance::startGameLoop()
             if (quit) break;
         }
         std::cout << "Round " << getRoundCount() << std::endl;
-        // std::cout << "Press 'p' to play" << std::endl;
-        // std::cout << "Press 'q' to quit" << std::endl;
-        // std::cout << "Press 'l' to show leaderboard" << std::endl;
-        // std::cin >> userInput;                  
 
-        std::cout << "It's Gametime!" << std::endl;
-        // std::cout << "Lizard beats PAPER and SPOCK" << std::endl;
-        // std::cout << "Spock beats ROCK and SCISSORS" << std::endl;
-        
         std::cout << "Press 'r' to pick rock" << std::endl;
         std::cout << "Press 'p' to pick paper" << std::endl;
         std::cout << "Press 's' to pick scissors" << std::endl;

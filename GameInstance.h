@@ -14,12 +14,13 @@ class GameInstance
 public:
     GameInstance();
     void startGameLoop();
+    void printInstructions();
     bool isValidHand(char key);
     void updateScore(Hands::handType winner);
     int getRoundCount()     { return roundCount;    }
     int getGameCount()      { return gameCount;     }
-    int setRoundCount()     { return roundCount++;  }
-    int setGameCount()      { return gameCount++;   }
+    int incRoundCount()     { return roundCount++;  }
+    int incGameCount()      { return gameCount++;   }
     int resetRoundCount()   { roundCount = 0; return roundCount; }
     std::string recordHand(char a, int patternSize);
     std::string pattern;
@@ -28,7 +29,6 @@ private:
     HumanPlayer *myPlayer;
     int roundCount;
     int gameCount;
-    
 };
 
 

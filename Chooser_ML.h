@@ -5,6 +5,4 @@ class CHOOSER_ML_H
 {
 public: 
 	Chooser_ML();
-}
-
-#endif
+};

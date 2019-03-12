@@ -79,6 +79,7 @@ void ComputerPlayer::toTextFile(std::string s)
 
             // send to new file
             fout << s << ":" << std::to_string(newFreq) << std::endl;
+            // std::cout << line << std::endl;
         }
 
         else
@@ -104,9 +105,76 @@ void ComputerPlayer::toTextFile(std::string s)
 
 char ComputerPlayer::setHand(std::string s, int patternLen)
 {
-                // should be s.length() == patternLen - 1
-    if (false)  // set to false for now, so it always makes a random choice
+    std::ifstream myfile ("test.txt");
+    std::string line;
+    std::size_t pos = 0;
+    bool found = false;
+    int bigFreq = 1;
+    std::string bigString;
+    
+    
+    const char arrayNum[3] = {'r', 'p', 's'};
+                                            // should be s.length() == patternLen - 1
+    if (s.length() == patternLen -1)  // set to false for now, so it always makes a random choice
     {
+        std::cout << "Ping!" << std::endl;
+        std::string line;
+        if (myfile.is_open())
+        {
+            while ( getline (myfile,line) )
+            {
+                pos = line.find(s);
+                if (pos != std::string::npos) 
+                {
+                    // std::cout << "Match!!!" << std::endl;
+                    found = true;
+                    // std::cout << line << std::endl;
+                    int checkFreq = strToInt(line);
+                    if(checkFreq > bigFreq){
+                        bigFreq = checkFreq;
+                        bigString = line;
+                    }
+
+                    // std::cout <<"big: "<< bigFreq << std::endl;
+                    // send to new file
+                }
+            }
+            myfile.close();
+        switch(bigString[4])
+            {
+                case 'r':
+                {
+                    cpuHand.setHand(arrayNum[1]);
+                    return arrayNum[1];   
+                }
+                case 'p':
+                {
+                    cpuHand.setHand(arrayNum[2]);
+                    return arrayNum[2]; 
+                }
+                case 's':
+                {
+                    cpuHand.setHand(arrayNum[0]);
+                    return arrayNum[0]; 
+                }
+                case 'l':
+                {
+                    cpuHand.setHand(arrayNum[2]);
+                    return arrayNum[2]; 
+                }
+                case 'v':
+                {
+                    cpuHand.setHand(arrayNum[1]);
+                    return arrayNum[1]; 
+                }
+            }
+
+        // read from text file into line
+        
+        }
+
+        else std::cout << "Unable to open file"; 
+
                 // make a prediction
                 // Derick's code will go here
     }
@@ -116,11 +184,10 @@ char ComputerPlayer::setHand(std::string s, int patternLen)
     {
         // set random hand
         srand ( time(NULL) ); //initialize the random seed
-        const char arrayNum[3] = {'r', 'p', 's'};
         int RandIndex = rand() % 3; //generates a random number between 0 and 4
         // std::cout << "CPU picked " << arrayNum[RandIndex] << std::endl;
-        cpuHand.setHand(arrayNum[RandIndex]);
-        return arrayNum[RandIndex];
+        cpuHand.setHand(arrayNum[1]);
+        return arrayNum[RandIndex]; //change to random later
     }
     
 }

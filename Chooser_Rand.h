@@ -5,4 +5,4 @@ class Chooser_Rand
 {
 public:
 	Chooser_Rand();
-}
+};

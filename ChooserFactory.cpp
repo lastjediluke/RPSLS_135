@@ -17,5 +17,3 @@ ChooserFactory::createChooser(string ChooserID)
 		return void;
 	}
 }
-
-#endif

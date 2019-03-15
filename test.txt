@@ -3,10 +3,10 @@ ppprp:1
 prppp:4
 prprp:3
 ppspr:2
-ppssr:3
+ppssr:4
 pppsp:3
-pspsp:2
-ppppp:3
+pspsp:4
+ppppp:4
 pprss:1
 rprpp:1
 ssrrp:2
@@ -46,3 +46,6 @@ sssrr:1
 ssrss:1
 psrrr:1
 sprrs:1
+sprps:1
+rssps:1
+srrps:1

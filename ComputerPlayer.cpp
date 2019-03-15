@@ -1,4 +1,5 @@
 #include "ComputerPlayer.h"
+#include <stdlib.h>
 
 
 ComputerPlayer::ComputerPlayer(char randOrSmart)
@@ -6,13 +7,20 @@ ComputerPlayer::ComputerPlayer(char randOrSmart)
     wins = 0;
     losses = 0;
     ties = 0;
+    
     if (randOrSmart == 'm')
     {
+        randFlag = false;
+        
         chooser = ChooserFactory::make_chooser("smart");
     }
 
-    else chooser = ChooserFactory::make_chooser("random");
-    
+    else 
+    {
+        randFlag = 1;
+        std::cout << "Random Chooser Created" << std::endl;
+        chooser = ChooserFactory::make_chooser("random"); 
+    }
 }
 
 void ComputerPlayer::getScore()
@@ -39,7 +47,6 @@ int ComputerPlayer::strToInt(std::string line)
     int lineLen = line.length();
     std::string temp = "";
     int i = 6;
-    std::cout << "Line at i: " << line[i] << std::endl;
 
     // start at 6
     while (i != lineLen)
@@ -77,7 +84,7 @@ void ComputerPlayer::toTextFile(std::string s)
         pos = line.find(s);
         if (pos != std::string::npos) 
         {
-            std::cout << "Match!" << std::endl;
+            std::cout << "Match writing to text file!" << std::endl;
             found = true;
             int newFreq = strToInt(line);
 
@@ -110,94 +117,68 @@ void ComputerPlayer::toTextFile(std::string s)
     fin.close(); 
 }
 
-char ComputerPlayer::setHand(std::string s, int patternLen, char difficulty)
+void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
 {
+    // at this point, cpu will pick a random hand and prepare for his educated pick                             
+    // append the arrayNum[RandIndex] to the end of the pattern
+    std::cout << "Making a prediction..." << std::endl;
     std::ifstream myfile ("test.txt");
     std::string line;
     std::size_t pos = 0;
     bool found = false;
-    int bigFreq = 1;
-    std::string bigString;
-    const char arrayNum[3] = {'r', 'p', 's'};
-    
-
-                                   
-    if (s.length() == patternLen -1)  // set to false for now, so it always makes a random choice
+    int bigFreq = 0;
+    std::string bigString = "";
+    s = s + c;
+    if (myfile.is_open())
     {
-        std::cout << "Ping!" << std::endl;
-        std::string line;
-        if (myfile.is_open())
+        while ( getline (myfile,line) )
         {
-            while ( getline (myfile,line) )
+            pos = line.find(s);
+            if (pos != std::string::npos) 
             {
-                pos = line.find(s);
-                if (pos != std::string::npos) 
+                std::cout << "Match in makePrediction()" << std::endl;
+                found = true;
+                int checkFreq = strToInt(line);
+                if(checkFreq > bigFreq)
                 {
-                    // std::cout << "Match!!!" << std::endl;
-                    found = true;
-                    // std::cout << line << std::endl;
-                    int checkFreq = strToInt(line);
-                    if(checkFreq > bigFreq){
-                        bigFreq = checkFreq;
-                        bigString = line;
-                    }
-
-                    // std::cout <<"big: "<< bigFreq << std::endl;
-                    // send to new file
+                    bigFreq = checkFreq;
+                    bigString = line;
                 }
             }
-            myfile.close();
-        switch(bigString[4])
-            {
-                case 'r':
-                {
-                    cpuHand.setHand(arrayNum[1]);
-                    return arrayNum[1];   
-                }
-                case 'p':
-                {
-                    cpuHand.setHand(arrayNum[2]);
-                    return arrayNum[2]; 
-                }
-                case 's':
-                {
-                    cpuHand.setHand(arrayNum[0]);
-                    return arrayNum[0]; 
-                }
-                case 'l':
-                {
-                    cpuHand.setHand(arrayNum[2]);
-                    return arrayNum[2]; 
-                }
-                case 'v':
-                {
-                    cpuHand.setHand(arrayNum[1]);
-                    return arrayNum[1]; 
-                }
-            }
-
-        // read from text file into line
-        
         }
+        myfile.close();
+        std::cout << "Biggest String: " << bigString << std::endl;
 
-        else std::cout << "Unable to open file"; 
-
-                // make a prediction
-                // Derick's code will go here
+        // if the bigString == "", then pick a random hand
+        if (bigString == "")
+        {
+            prediction = 'x';
+        }
+        else 
+        {
+            switch(bigString[4])
+            {
+                case 'r': { prediction = 'p'; break; }
+                case 'p': { prediction = 's'; break; }
+                case 's': { prediction = 'r'; break; }
+                case 'l': { prediction = 'r'; break; }
+                case 'v': { prediction = 'p'; break; }
+            }
+        }
     }
-    
+    else std::cout << "Unable to open file"; 
+}
 
-    // else we will pick a random one
-    else
+char ComputerPlayer::setHand(std::string s, int patternLen, char difficulty)
+{  
+    char choice = chooser->make_choice(s, patternLen, prediction);
+    cpuHand.setHand(choice);
+    if (s.length() == patternLen - 2 && randFlag == false)
     {
-        // set random hand
-        srand ( time(NULL) ); //initialize the random seed
-        int RandIndex = rand() % 3; //generates a random number between 0 and 4
-        // std::cout << "CPU picked " << arrayNum[RandIndex] << std::endl;
-        cpuHand.setHand(arrayNum[1]);
-        return arrayNum[RandIndex]; //change to random later
-    }
+        makePrediction(s, patternLen, choice);
+    } 
     
+    return choice;
 }
 
 void ComputerPlayer::setScore(int sc)

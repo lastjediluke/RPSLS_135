@@ -1,0 +1,86 @@
+char ComputerPlayer::setHand(std::string s, int patternLen, char difficulty)
+{
+    std::ifstream myfile ("test.txt");
+    std::string line;
+    std::size_t pos = 0;
+    bool found = false;
+    int bigFreq = 0;
+    std::string bigString = "";
+    const char arrayNum[3] = {'r', 'p', 's'};
+
+    // set random hand
+    srand ( time(NULL) ); //initialize the random seed
+    int RandIndex = rand() % 3; //generates a random number between 0 and 4
+
+    if (s.length() == patternLen)
+    {
+        // no pattern match
+        if (prediction == 'x') 
+        { 
+            cpuHand.setHand(arrayNum[RandIndex]); 
+            return arrayNum[RandIndex]; 
+        }
+        else
+        {
+            cpuHand.setHand(getPrediction());
+            return getPrediction();
+        }
+    }
+    
+    // at this point, cpu will pick a random hand and prepare for his educated pick                             
+    if (s.length() == patternLen - 2)
+    {
+        cpuHand.setHand(arrayNum[RandIndex]);
+
+        // append the choice to the end of the pattern
+        s = s + arrayNum[RandIndex];
+        std::cout << "Pattern in setHand() " << s << std::endl;
+        if (myfile.is_open())
+        {
+            while ( getline (myfile,line) )
+            {
+                pos = line.find(s);
+                if (pos != std::string::npos) 
+                {
+                    std::cout << "Match in setHand()" << std::endl;
+                    found = true;
+                    int checkFreq = strToInt(line);
+                    if(checkFreq > bigFreq)
+                    {
+                        bigFreq = checkFreq;
+                        bigString = line;
+                    }
+                }
+            }
+            myfile.close();
+            std::cout << "Biggest String: " << bigString << std::endl;
+
+            // if the bigString == "", then pick a random hand
+            if (bigString == "")
+            {
+                prediction = 'x';
+            }
+            else 
+            {
+                switch(bigString[4])
+                {
+                    case 'r': { prediction = 'p'; break; }
+                    case 'p': { prediction = 's'; break; }
+                    case 's': { prediction = 'r'; break; }
+                    case 'l': { prediction = 'r'; break; }
+                    case 'v': { prediction = 'p'; break; }
+                }
+            }
+            return arrayNum[RandIndex];
+        }
+        else std::cout << "Unable to open file"; 
+    }
+    
+    // else we will pick a random one
+    else
+    {
+        cpuHand.setHand(arrayNum[RandIndex]);
+        return arrayNum[RandIndex]; 
+    }
+    
+}

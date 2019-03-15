@@ -30,7 +30,7 @@ void ComputerPlayer::getScore()
 
 void ComputerPlayer::insertNewPattern(std::string s)
 {
-    std::cout << "insert new pattern..." << std::endl;
+    // std::cout << "insert new pattern..." << std::endl;
     std::ofstream ofs;
     ofs.open ("test2.txt", std::ios::out | std::ofstream::app);
     ofs << s << ":1" << std::endl;
@@ -84,7 +84,7 @@ void ComputerPlayer::toTextFile(std::string s)
         pos = line.find(s);
         if (pos != std::string::npos) 
         {
-            std::cout << "Match writing to text file!" << std::endl;
+            // std::cout << "Match writing to text file!" << std::endl;
             found = true;
             int newFreq = strToInt(line);
 
@@ -121,7 +121,7 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
 {
     // at this point, cpu will pick a random hand and prepare for his educated pick                             
     // append the arrayNum[RandIndex] to the end of the pattern
-    std::cout << "Making a prediction..." << std::endl;
+    // std::cout << "Making a prediction..." << std::endl;
     std::ifstream myfile ("test.txt");
     std::string line;
     std::size_t pos = 0;
@@ -136,7 +136,7 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
             pos = line.find(s);
             if (pos != std::string::npos) 
             {
-                std::cout << "Match in makePrediction()" << std::endl;
+                // std::cout << "Match in makePrediction()" << std::endl;
                 found = true;
                 int checkFreq = strToInt(line);
                 if(checkFreq > bigFreq)
@@ -147,7 +147,7 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
             }
         }
         myfile.close();
-        std::cout << "Biggest String: " << bigString << std::endl;
+        // std::cout << "Biggest String: " << bigString << std::endl;
 
         // if the bigString == "", then pick a random hand
         if (bigString == "")

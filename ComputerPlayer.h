@@ -14,23 +14,30 @@ class ComputerPlayer
 {
 public:
     ComputerPlayer(char randOrSmart);
-
+    char getPrediction() { return prediction; }
     char setHand(std::string s, int patternLen, char difficulty);
     Hands::handType getHand() { return cpuHand.getHand(); }
     void setScore(int sc);
     void getScore();
+    void setPrediction(char c) { prediction = c; }
+    
 
     // new funcs for Assignment 4
     void insertNewPattern(std::string s);
     void increasePatternFreq(std::string s);
     void toTextFile(std::string s);
     int strToInt(std::string line);
+    bool getRandFlag() { return randFlag; }
+    void makePrediction(std::string s, int patternLen, char c);
 private:
     int wins;
     int losses;
     int ties;
+    char prediction;
     Hands cpuHand;
     Chooser *chooser;
+    bool randFlag;
+
 };
 
 

@@ -9,8 +9,9 @@
 class Chooser_Rand : public Chooser
 {
 public:
-	Chooser_Rand(){};
-	void make_choice(std::string which);
+	Chooser_Rand(){}
+	~Chooser_Rand(){}
+	char make_choice(std::string s, int patternLen, char p);
 };
 
 #endif

@@ -7,7 +7,8 @@ class Chooser
 {
 public:
     Chooser(){};
-    virtual void make_choice(std::string which) = 0;
+    virtual char make_choice(std::string s, int patternLen, char p) = 0;
+    virtual ~Chooser() {}
 };
 
 #endif

@@ -151,7 +151,7 @@ void GameInstance::startGameLoop()
         // Luke modified setHand
         char cpuChar = cpu->setHand(getPattern, 5, randOrSmart);
         getPattern = recordHand(cpuChar, 5);
-        std::cout << "Pattern: " << getPattern << std::endl;
+        // std::cout << "Pattern: " << getPattern << std::endl;
         // cpu->setHand(getPattern, 5, randOrSmart);
         Hands::handType win = Hands::getWinner(myPlayer->getHand(), cpu->getHand());
         updateScore(win);

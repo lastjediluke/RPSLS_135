@@ -2,6 +2,13 @@
 #define BUTTONPANEL_H_
 
 #include "ButtonDemo.h"
+#include <iostream>
+#include <stdio.h>
+#include "HumanPlayer.h"
+#include "ComputerPlayer.h"
+#include "GameInstance.h"
+#include <string>
+#include <fstream>
 #include "Choice.h"
 
 /**
@@ -16,8 +23,15 @@ public:
      */
     ButtonPanel(wxFrame *parent) : wxPanel(parent, wxID_ANY)
     {
+        // Luke mod
+        // myPlayer = new HumanPlayer();
+        // cpu = new ComputerPlayer('r');
+        game = new GameInstance();
+        getPattern = "";
         init();
     }
+
+    std::string getPattern;
 
     /**
      * Event handler for the rock button.
@@ -39,6 +53,9 @@ public:
 
 private:
     wxStaticText *button_chosen_text;
+    // HumanPlayer *myPlayer;
+    // ComputerPlayer *cpu;
+    GameInstance *game;
 
     /**
      * Initialize the panel contents.

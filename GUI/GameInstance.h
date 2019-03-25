@@ -24,6 +24,10 @@ public:
     int resetRoundCount()   { roundCount = 0; return roundCount; }
     std::string recordHand(char a, int patternSize);
     std::string pattern;
+
+    // Assignment 5 getters
+    HumanPlayer *getPlayer() { return myPlayer; }
+    ComputerPlayer *getCpu() { return cpu; }
 private:
     ComputerPlayer *cpu;
     HumanPlayer *myPlayer;

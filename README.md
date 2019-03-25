@@ -1,7 +1,8 @@
 # RPSLS_135
 ## How to compile and run with wxWidgets:
 1. Make sure wxWidgets is installed: `wx-config --libs` which should return a list of libraries.
-2. `g++ `wx-config --cxxflags` -o out *.cpp `wx-config --libs``
+2. g++ ``wx-config --cxxflags`` -o out *.cpp ``wx-config --libs``
+3. `./out`
 `
 `
 

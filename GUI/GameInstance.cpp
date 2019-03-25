@@ -4,18 +4,24 @@
 GameInstance::GameInstance()
 {
     // moved cpu and player down into gameloop
+    char temp;
     roundCount = 0;
     gameCount = 0;
     pattern = "";
-    startGameLoop();
+
+    // Assignment 5 Luke mod
+    std::cout << "Would you like the CPU to pick randomly or use machine learning?" << std::endl;
+    std::cout << "Press m for machine learning and any other key for random" << std::endl;
+    std::cin >> temp;
+    cpu = new ComputerPlayer(temp);
+    myPlayer = new HumanPlayer();
+
+    // game loop isn't being used for Assignment 5
+    // startGameLoop();
 }
 
 void GameInstance::printInstructions()
-{
-    // std::cout << "Press 'p' to play" << std::endl;
-    // std::cout << "Press 'q' to quit" << std::endl;
-    // std::cout << "Press 'l' to show leaderboard" << std::endl;
-    // std::cin >> userInput;                  
+{                  
     std::cout << "It's Gametime!" << std::endl;
     std::cout << "Here's how you play: " << std::endl;
     std::cout << "Rock beats SCISSORS" << std::endl;
@@ -23,6 +29,11 @@ void GameInstance::printInstructions()
     std::cout << "Scissors beats PAPER" << std::endl;
     // std::cout << "Lizard beats PAPER and SPOCK" << std::endl;
     // std::cout << "Spock beats ROCK and SCISSORS" << std::endl;
+    std::cout << "Press 'r' to pick rock" << std::endl;
+    std::cout << "Press 'p' to pick paper" << std::endl;
+    std::cout << "Press 's' to pick scissors" << std::endl;
+    // std::cout << "Press 'l' to pick lizard" << std::endl;
+    // std::cout << "Press 'v' to pick spock" << std::endl;
 }
 
 bool GameInstance::isValidHand(char key)
@@ -86,17 +97,10 @@ void GameInstance::startGameLoop()
     std::cout << '\n';
     bool quit = false;
     char randOrSmart;
-
-    std::cout << "Here's how you play: " << std::endl;
-    std::cout << "Rock beats SCISSORS" << std::endl;
-    std::cout << "Paper beats ROCK" << std::endl;
-    std::cout << "Scissors beats PAPER" << std::endl;
+    printInstructions();
     std::string getPattern = "";
-    std::cout << "Would you like the CPU to pick randomly or use machine learning?" << std::endl;
-    std::cout << "Press m for machine learning and any other key for random" << std::endl;
-    std::cin >> randOrSmart;
-    cpu = new ComputerPlayer(randOrSmart);
-    myPlayer = new HumanPlayer();
+    // cpu = new ComputerPlayer(randOrSmart);
+    // myPlayer = new HumanPlayer();
     do
     {
         setRoundCount();
@@ -124,20 +128,7 @@ void GameInstance::startGameLoop()
             if (quit) break;
         }
         std::cout << "Round " << getRoundCount() << std::endl;
-        // std::cout << "Press 'p' to play" << std::endl;
-        // std::cout << "Press 'q' to quit" << std::endl;
-        // std::cout << "Press 'l' to show leaderboard" << std::endl;
-        // std::cin >> userInput;                  
-
         std::cout << "It's Gametime!" << std::endl;
-        // std::cout << "Lizard beats PAPER and SPOCK" << std::endl;
-        // std::cout << "Spock beats ROCK and SCISSORS" << std::endl;
-        
-        std::cout << "Press 'r' to pick rock" << std::endl;
-        std::cout << "Press 'p' to pick paper" << std::endl;
-        std::cout << "Press 's' to pick scissors" << std::endl;
-        // std::cout << "Press 'l' to pick lizard" << std::endl;
-        // std::cout << "Press 'v' to pick spock" << std::endl;
         while(1)
         {
             std::cin >> handInput;

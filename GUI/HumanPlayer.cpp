@@ -1,5 +1,13 @@
 #include "HumanPlayer.h"
 
+HumanPlayer::HumanPlayer()
+{
+    wins = 0;
+    losses = 0;
+    ties = 0;
+    std::cout << "Human Player initialized" << std::endl;
+}
+
 char HumanPlayer::setHand(char pickHand)
 {
     // calls setHand() within the Hands class

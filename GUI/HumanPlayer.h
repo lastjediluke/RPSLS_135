@@ -7,13 +7,7 @@
 class HumanPlayer
 {
 public:
-    HumanPlayer()
-    {
-        wins = 0;
-        losses = 0;
-        ties = 0;
-        std::cout << "Human Player initialized" << std::endl;
-    }
+    HumanPlayer();
     bool isHand(char key);
     char setHand(char pickHand);
     void setScore(int sc);

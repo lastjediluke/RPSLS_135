@@ -3,12 +3,37 @@
 
 GameInstance::GameInstance()
 {
-    cpu = new ComputerPlayer();
-    myPlayer = new HumanPlayer();
+    // moved cpu and player down into gameloop
+    char temp;
     roundCount = 0;
     gameCount = 0;
     pattern = "";
-    startGameLoop();
+
+    // Assignment 5 Luke mod
+    std::cout << "Would you like the CPU to pick randomly or use machine learning?" << std::endl;
+    std::cout << "Press m for machine learning and any other key for random" << std::endl;
+    std::cin >> temp;
+    cpu = new ComputerPlayer(temp);
+    myPlayer = new HumanPlayer();
+
+    // game loop isn't being used for Assignment 5
+    // startGameLoop();
+}
+
+void GameInstance::printInstructions()
+{                  
+    std::cout << "It's Gametime!" << std::endl;
+    std::cout << "Here's how you play: " << std::endl;
+    std::cout << "Rock beats SCISSORS" << std::endl;
+    std::cout << "Paper beats ROCK" << std::endl;
+    std::cout << "Scissors beats PAPER" << std::endl;
+    // std::cout << "Lizard beats PAPER and SPOCK" << std::endl;
+    // std::cout << "Spock beats ROCK and SCISSORS" << std::endl;
+    std::cout << "Press 'r' to pick rock" << std::endl;
+    std::cout << "Press 'p' to pick paper" << std::endl;
+    std::cout << "Press 's' to pick scissors" << std::endl;
+    // std::cout << "Press 'l' to pick lizard" << std::endl;
+    // std::cout << "Press 'v' to pick spock" << std::endl;
 }
 
 bool GameInstance::isValidHand(char key)
@@ -30,6 +55,7 @@ void GameInstance::updateScore(Hands::handType winner)
     {
         std::cout << "You Win This Round!" << std::endl;
         std::cout << "" << std::endl;
+        // increase player score by 1, decrease CPU score by 1
         myPlayer->setScore(1);
         cpu->setScore(-1);
     }
@@ -37,6 +63,7 @@ void GameInstance::updateScore(Hands::handType winner)
     {
         std::cout << "Computer Wins This Round!" << std::endl;
         std::cout << "" << std::endl;
+        // decrease player score by 1, increase CPU score by 1
         myPlayer->setScore(-1);
         cpu->setScore(1);
     }
@@ -51,17 +78,14 @@ std::string GameInstance::recordHand(char a, int patternSize)
     {
         
         std::string temp = pattern;
-        //std::cout << "Pattern is: " << pattern << std::endl;
         cpu->toTextFile(pattern);
 
         // clear the pattern
         pattern = "";
         return temp;
     }
-
     pattern += a;
-// std::cout << "Pattern is: " << pattern << std::endl;
-
+    
     return pattern;
     }
 
@@ -72,11 +96,11 @@ void GameInstance::startGameLoop()
     std::string handInput;
     std::cout << '\n';
     bool quit = false;
-    std::cout << "Here's how you play: " << std::endl;
-    std::cout << "Rock beats SCISSORS" << std::endl;
-    std::cout << "Paper beats ROCK" << std::endl;
-    std::cout << "Scissors beats PAPER" << std::endl;
+    char randOrSmart;
+    printInstructions();
     std::string getPattern = "";
+    // cpu = new ComputerPlayer(randOrSmart);
+    // myPlayer = new HumanPlayer();
     do
     {
         setRoundCount();
@@ -104,20 +128,7 @@ void GameInstance::startGameLoop()
             if (quit) break;
         }
         std::cout << "Round " << getRoundCount() << std::endl;
-        // std::cout << "Press 'p' to play" << std::endl;
-        // std::cout << "Press 'q' to quit" << std::endl;
-        // std::cout << "Press 'l' to show leaderboard" << std::endl;
-        // std::cin >> userInput;                  
-
         std::cout << "It's Gametime!" << std::endl;
-        // std::cout << "Lizard beats PAPER and SPOCK" << std::endl;
-        // std::cout << "Spock beats ROCK and SCISSORS" << std::endl;
-        
-        std::cout << "Press 'r' to pick rock" << std::endl;
-        std::cout << "Press 'p' to pick paper" << std::endl;
-        std::cout << "Press 's' to pick scissors" << std::endl;
-        // std::cout << "Press 'l' to pick lizard" << std::endl;
-        // std::cout << "Press 'v' to pick spock" << std::endl;
         while(1)
         {
             std::cin >> handInput;
@@ -129,10 +140,10 @@ void GameInstance::startGameLoop()
         std::cout << "CPU picked ";
 
         // Luke modified setHand
-        char cpuChar = cpu->setHand(getPattern, 5);
+        char cpuChar = cpu->setHand(getPattern, 5, randOrSmart);
         getPattern = recordHand(cpuChar, 5);
-        std::cout << "Pattern: " << getPattern << std::endl;
-        cpu->setHand(getPattern, 5);
+        // std::cout << "Pattern: " << getPattern << std::endl;
+        // cpu->setHand(getPattern, 5, randOrSmart);
         Hands::handType win = Hands::getWinner(myPlayer->getHand(), cpu->getHand());
         updateScore(win);
         

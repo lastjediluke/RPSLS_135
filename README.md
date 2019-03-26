@@ -1,6 +1,12 @@
 # RPSLS_135
-## How to compile and run the code:
+## How to compile and run with wxWidgets:
+1. Make sure wxWidgets is installed: `wx-config --libs` which should return a list of libraries.
+2. `` g++ `wx-config --cxxflags` -o out *.cpp `wx-config --libs` ``
+3. `./out`
+`
+`
 
+## How to compile and run the code:
 ### clone repo to your machine
 1. `git clone https://github.com/lastjediluke/RPSLS_135.git`
 

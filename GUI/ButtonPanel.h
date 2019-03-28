@@ -53,6 +53,9 @@ public:
 
 private:
     wxStaticText *button_chosen_text;
+    //Round counter on the GUI
+    wxStaticText *round_counter_text;
+    int round_count = 1;
     // HumanPlayer *myPlayer;
     // ComputerPlayer *cpu;
     GameInstance *game;
@@ -67,6 +70,12 @@ private:
      * @param choice the chosen object.
      */
     void update_button_choice_text(const Choice choice);
+
+    /**
+    *  Update the displayed round counter object.
+    * @param choice the chosen object
+    */
+    void update_round_counter_text(int round_count);
 };
 
 #endif /* BUTTONPANEL_H_ */

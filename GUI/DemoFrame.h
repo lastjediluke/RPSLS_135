@@ -32,11 +32,21 @@ public:
      */
     void on_quit(wxCommandEvent& event);
 
+    /**
+     * Event handler for the Rounds menu item.
+     * @param event the item selection event.
+     */
+    void on_rounds(wxCommandEvent& event);
+
 private:
     // The event table that maps events to their handlers.
     wxDECLARE_EVENT_TABLE();
 
     ButtonPanel *button_panel;
+    wxInt8 m_Rounds;
+    wxButton* m_OK;
+    wxButton* m_cancel;
+    wxTextCtrl* m_textField;
 
     /**
      * Initialize the contents of the application frame.
@@ -58,7 +68,10 @@ private:
 enum
 {
     RPS_Quit  = wxID_EXIT,
-    RPS_About = wxID_ABOUT
+    RPS_Rounds = wxID_UNDO,
+    RPS_About = wxID_ABOUT,
+    RPS_OK = wxID_OK,
+    RPS_Cancel = wxID_CANCEL
 };
 
 #endif /* DEMOFRAME_H_ */

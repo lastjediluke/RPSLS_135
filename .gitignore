@@ -7,3 +7,8 @@
 output
 *.exe
 *.vscode
+GUI/out
+GUI/ButtonDemoOut
+out
+ButtonDemoOut
+.vscode/

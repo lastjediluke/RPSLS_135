@@ -16,18 +16,21 @@ public:
     void startGameLoop();
     void printInstructions();
     bool isValidHand(char key);
-    void updateScore(Hands::handType winner);
+    char updateScore(Hands::handType winner);
     int getRoundCount()     { return roundCount;    }
     int getGameCount()      { return gameCount;     }
     int setRoundCount()     { return roundCount++;  }
     int setGameCount()      { return gameCount++;   }
-    int resetRoundCount()   { roundCount = 0; return roundCount; }
+    int resetRoundCount()   { roundCount = 1; return roundCount; }
     std::string recordHand(char a, int patternSize);
     std::string pattern;
 
     // Assignment 5 getters
-    HumanPlayer *getPlayer() { return myPlayer; }
-    ComputerPlayer *getCpu() { return cpu; }
+    HumanPlayer *getPlayer()    { return myPlayer;              }
+    ComputerPlayer *getCpu()    { return cpu;                   }
+    int getComputerWins()       { return cpu->getWins();        }
+    int getHumanWins()          { return myPlayer->getWins();   }
+    int getTies()               { return myPlayer->getTies();   }
 private:
     ComputerPlayer *cpu;
     HumanPlayer *myPlayer;

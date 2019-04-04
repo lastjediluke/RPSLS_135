@@ -20,7 +20,7 @@ public:
     void setScore(int sc);
     void getScore();
     void setPrediction(char c) { prediction = c; }
-    
+    int getWins() { return wins; }
 
     // new funcs for Assignment 4
     void insertNewPattern(std::string s);

@@ -43,6 +43,8 @@ void ButtonPanel::init()
     // Panels and Sizers
     wxPanel *chosen_panel = new wxPanel(this, wxID_ANY);
     wxSizer *chosen_sizer = new wxGridSizer(2, 0, 5);
+    wxPanel *computer_panel = new wxPanel(this, wxID_ANY);
+    wxSizer *computer_sizer = new wxGridSizer(2, 0, 5);
     wxPanel *winner_panel = new wxPanel(this, wxID_ANY);
     wxSizer *winner_sizer = new wxGridSizer(2, 0, 5);
     wxPanel *stats_panel = new wxPanel(this, wxID_ANY);
@@ -51,6 +53,9 @@ void ButtonPanel::init()
     // Static Text
     wxStaticText *chosen_text = new wxStaticText(chosen_panel, wxID_ANY, "Human Chooses:");
     wxStaticText *round_text = new wxStaticText(chosen_panel, wxID_ANY, "Round:");
+    wxStaticText *computer_title = new wxStaticText(computer_panel, wxID_ANY, "Computer");
+    wxStaticText *humanPrediction_title = new wxStaticText(computer_panel, wxID_ANY, "Predicted Choice:");
+    wxStaticText *computerNextPick_title = new wxStaticText(computer_panel, wxID_ANY, "Computer Picks:");
     wxStaticText *winner_title = new wxStaticText(winner_panel, wxID_ANY, "Winner:");
     wxStaticText *stats_title = new wxStaticText(stats_panel, wxID_ANY, "STATS");
     wxStaticText *humanWins_title = new wxStaticText(stats_panel, wxID_ANY, "Human Wins:");
@@ -66,11 +71,27 @@ void ButtonPanel::init()
 
     // Round Counter
     round_counter_text = new wxStaticText(chosen_panel, wxID_ANY, "1");
-    round_counter_text->SetFont(round_counter_text->GetFont().Larger());
     chosen_sizer->Add(round_text, 0, wxALIGN_RIGHT, 0);
     chosen_sizer->Add(round_counter_text, 0, 0, 0);
     chosen_panel->SetSizer(chosen_sizer);
 
+    // Computer
+    blank_text = new wxStaticText(computer_panel, wxID_ANY, ""); 
+    computer_title->SetFont(computer_title->GetFont().Larger());
+    computer_sizer->Add(computer_title, 0, wxALIGN_RIGHT, 0);
+    computer_sizer->Add(blank_text, 0, 0, 0);
+    computer_panel->SetSizer(computer_sizer);
+
+    humanPrediction_text = new wxStaticText(computer_panel, wxID_ANY, "");
+    computer_sizer->Add(humanPrediction_title, 0, wxALIGN_RIGHT, 0);
+    computer_sizer->Add(humanPrediction_text, 0, 0, 0);
+    computer_panel->SetSizer(computer_sizer);
+
+    computerNextPick_text = new wxStaticText(computer_panel, wxID_ANY, "");
+    computer_sizer->Add(computerNextPick_title, 0, wxALIGN_RIGHT, 0);
+    computer_sizer->Add(computerNextPick_text, 0, 0, 0);
+    computer_panel->SetSizer(computer_sizer);
+    
     // Winner
     winner_text = new wxStaticText(winner_panel, wxID_ANY, "");
     winner_sizer->Add(winner_title, 0, wxALIGN_RIGHT, 0);
@@ -107,6 +128,8 @@ void ButtonPanel::init()
     sizer->AddSpacer(20);
     sizer->Add(chosen_panel, 0, wxALIGN_CENTER, 0);
     sizer->AddSpacer(20);
+    sizer->Add(computer_panel, 0, wxALIGN_CENTER, 0);
+    sizer->AddSpacer(20);
     sizer->Add(winner_panel, 0, wxALIGN_CENTER, 0);
     sizer->AddSpacer(20);
     sizer->Add(stats_panel, 0, wxALIGN_CENTER, 0);
@@ -137,6 +160,8 @@ void ButtonPanel::on_scissors(wxCommandEvent& event)
 
 void ButtonPanel::update_button_choice_text(const Choice choice)
 {
+    char pred = game->getCpu()->getPrediction();
+    updatePredictions(pred);
     button_chosen_text->SetLabelText(choice_to_wxString(choice));
     char cpuChar = game->getCpu()->setHand(getPattern, 5, 'm');
     game->setRoundCount();
@@ -158,6 +183,34 @@ void ButtonPanel::update_button_choice_text(const Choice choice)
 void ButtonPanel::update_round_counter_text(Round_count round_count)
 {
     round_counter_text->SetLabelText(round_count_to_wxString(round_count));
+}
+
+void ButtonPanel::updatePredictions(char p)
+{
+    if (p == 'r')
+    {
+        humanPrediction_text->SetLabelText("Scissors");
+        computerNextPick_text->SetLabelText("Rock");
+    }
+
+    else if (p == 'p')
+    {
+        humanPrediction_text->SetLabelText("Rock");
+        computerNextPick_text->SetLabelText("Paper");
+    }
+
+    else if (p == 's')
+    {
+        humanPrediction_text->SetLabelText("Paper");
+        computerNextPick_text->SetLabelText("Scissors");
+    }
+
+    else
+    {
+        humanPrediction_text->SetLabelText("IDK");
+        computerNextPick_text->SetLabelText("Random");
+    }
+    
 }
 
 void ButtonPanel::update_stats_text(char wtl)

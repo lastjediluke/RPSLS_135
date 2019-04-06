@@ -8,13 +8,13 @@ pppsp:17
 pspsp:74
 ppppp:75
 pprss:2
-rprpp:1
+rprpp:2
 ssrrp:2
 rpssr:2
-rrrrr:19
+rrrrr:20
 srssp:2
 rprpr:12
-rsrsr:22
+rsrsr:24
 rrrpr:9
 rprsr:5
 rrrps:2
@@ -54,7 +54,7 @@ pspss:1
 sppsr:2
 prsrp:3
 rsrrr:6
-rrrsr:3
+rrrsr:4
 rprrr:4
 prspp:5
 ssrsp:1
@@ -126,3 +126,5 @@ srspp:1
 psprs:1
 ppssp:1
 prssr:1
+psspp:1
+srssr:1

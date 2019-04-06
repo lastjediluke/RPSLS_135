@@ -136,7 +136,6 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
             pos = line.find(s);
             if (pos != std::string::npos) 
             {
-                // std::cout << "Match in makePrediction()" << std::endl;
                 found = true;
                 int checkFreq = strToInt(line);
                 if(checkFreq > bigFreq)
@@ -147,10 +146,9 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
             }
         }
         myfile.close();
-        // std::cout << "Biggest String: " << bigString << std::endl;
 
         // if the bigString == "", then pick a random hand
-        if (bigString == "")
+        if (bigString == "" || s.length() < patternLen - 2)
         {
             prediction = 'x';
         }
@@ -173,11 +171,13 @@ char ComputerPlayer::setHand(std::string s, int patternLen, char difficulty)
 {  
     char choice = chooser->make_choice(s, patternLen, prediction);
     cpuHand.setHand(choice);
+    makePrediction(s, patternLen, choice);
+    /*
     if (s.length() == patternLen - 2 && randFlag == false)
     {
         makePrediction(s, patternLen, choice);
     } 
-    
+    */
     return choice;
 }
 

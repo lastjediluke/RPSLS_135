@@ -33,7 +33,7 @@ prpss:1
 sssps:3
 spppp:4
 psppr:1
-prsss:2
+prsss:3
 srsss:1
 srsps:4
 spsrs:2
@@ -56,11 +56,11 @@ prsrp:3
 rsrrr:6
 rrrsr:4
 rprrr:4
-prspp:5
+prspp:6
 ssrsp:1
 srppr:4
 rppps:2
-psrsp:5
+psrsp:6
 sspsr:4
 prrpp:6
 prpsp:2
@@ -94,7 +94,7 @@ prprr:2
 rrrrs:1
 rsprs:3
 prpsr:1
-rppss:3
+rppss:4
 psrsr:1
 rsrpr:1
 prrsp:2
@@ -115,7 +115,7 @@ spppr:1
 psssp:1
 rrprp:1
 rspsr:3
-pprpp:2
+pprpp:3
 pssrp:1
 ppspp:3
 srprr:2
@@ -128,3 +128,4 @@ ppssp:1
 prssr:1
 psspp:1
 srssr:1
+srrrr:1

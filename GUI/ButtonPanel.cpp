@@ -64,7 +64,6 @@ void ButtonPanel::init()
 
     // Chosen
     button_chosen_text = new wxStaticText(chosen_panel, wxID_ANY, "");
-    button_chosen_text->SetFont(button_chosen_text->GetFont().Larger());
     chosen_sizer->Add(chosen_text, 0, wxALIGN_RIGHT, 0);
     chosen_sizer->Add(button_chosen_text, 0, 0, 0);
     chosen_panel->SetSizer(chosen_sizer);
@@ -160,8 +159,7 @@ void ButtonPanel::on_scissors(wxCommandEvent& event)
 
 void ButtonPanel::update_button_choice_text(const Choice choice)
 {
-    char pred = game->getCpu()->getPrediction();
-    updatePredictions(pred);
+    
     button_chosen_text->SetLabelText(choice_to_wxString(choice));
     char cpuChar = game->getCpu()->setHand(getPattern, 5, 'm');
     game->setRoundCount();
@@ -169,6 +167,10 @@ void ButtonPanel::update_button_choice_text(const Choice choice)
     Hands::handType win = Hands::getWinner(game->getPlayer()->getHand(), game->getCpu()->getHand());
     char winner = game->updateScore(win);
     update_stats_text(winner);
+    char pred = game->getCpu()->getPrediction();
+    updatePredictions(pred);
+
+    // end of game
     if (game->getRoundCount() == 21)
     {
         std::cout << "Game Over!" << std::endl;
@@ -192,25 +194,21 @@ void ButtonPanel::updatePredictions(char p)
         humanPrediction_text->SetLabelText("Scissors");
         computerNextPick_text->SetLabelText("Rock");
     }
-
     else if (p == 'p')
     {
         humanPrediction_text->SetLabelText("Rock");
         computerNextPick_text->SetLabelText("Paper");
     }
-
     else if (p == 's')
     {
         humanPrediction_text->SetLabelText("Paper");
         computerNextPick_text->SetLabelText("Scissors");
     }
-
     else
     {
         humanPrediction_text->SetLabelText("IDK");
         computerNextPick_text->SetLabelText("Random");
-    }
-    
+    } 
 }
 
 void ButtonPanel::update_stats_text(char wtl)

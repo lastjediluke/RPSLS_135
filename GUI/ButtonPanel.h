@@ -60,6 +60,9 @@ private:
     wxStaticText *ties_text;
     wxStaticText *computerWins_text;
     wxStaticText *humanWins_text;
+    wxStaticText *blank_text;
+    wxStaticText *humanPrediction_text;
+    wxStaticText *computerNextPick_text;
     int round_count;
     GameInstance *game;
 
@@ -74,9 +77,9 @@ private:
      * @param choice the chosen object.
      */
     void update_button_choice_text(const Choice choice);
-
     void update_round_counter_text(int round_count);
     void update_stats_text(char wtl);
+    void updatePredictions(char p);
 };
 
 #endif /* BUTTONPANEL_H_ */

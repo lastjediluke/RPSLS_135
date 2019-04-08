@@ -5,7 +5,7 @@ GameInstance::GameInstance()
 {
     // moved cpu and player down into gameloop
     char temp;
-    roundCount = 0;
+    roundCount = 1;
     gameCount = 0;
     pattern = "";
 
@@ -42,7 +42,7 @@ bool GameInstance::isValidHand(char key)
     else return false;
 }
 
-void GameInstance::updateScore(Hands::handType winner)
+char GameInstance::updateScore(Hands::handType winner)
 {
     if (winner == Hands::tie)
     {
@@ -50,6 +50,7 @@ void GameInstance::updateScore(Hands::handType winner)
         std::cout << "" << std::endl;
         myPlayer->setScore(0);
         cpu->setScore(0);
+        return 't';
     }
     else if (myPlayer->getHand() == winner)
     {
@@ -58,6 +59,7 @@ void GameInstance::updateScore(Hands::handType winner)
         // increase player score by 1, decrease CPU score by 1
         myPlayer->setScore(1);
         cpu->setScore(-1);
+        return 'h';
     }
     else
     {
@@ -66,6 +68,7 @@ void GameInstance::updateScore(Hands::handType winner)
         // decrease player score by 1, increase CPU score by 1
         myPlayer->setScore(-1);
         cpu->setScore(1);
+        return 'c';
     }
     // myPlayer->getScore();
     // cpu->getScore();

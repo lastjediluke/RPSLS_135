@@ -17,9 +17,31 @@ void ButtonPanel::winnerInit()
 void ButtonPanel::init()
 {
     // Buttons
+    chooser_panel = new wxPanel(this, wxID_ANY);
     wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
-    wxPanel *button_panel = new wxPanel(this, wxID_ANY);
-    wxSizer *button_sizer = new wxBoxSizer(wxHORIZONTAL);
+    chooser_sizer = new wxBoxSizer(wxHORIZONTAL);
+    chooser_text = new wxStaticText(chooser_panel, wxID_ANY,
+                                             "Choose ML or random chooser:");
+    ML_button       = new wxButton(chooser_panel, wxID_ANY,
+                                             "Machine Learning");
+    rand_button     = new wxButton(chooser_panel, wxID_ANY,
+                                             "Rand");
+    ML_button->Bind(wxEVT_BUTTON, &ButtonPanel::on_ML, this);
+    rand_button->Bind(wxEVT_BUTTON, &ButtonPanel::on_rand, this);
+
+    chooser_sizer->Add(chooser_text, 0, 0, 0);
+    chooser_sizer->AddSpacer(5);
+    chooser_sizer->Add(ML_button, 0, 0, 0);
+    chooser_sizer->AddSpacer(5);
+    chooser_sizer->Add(rand_button, 0, 0, 0);
+    chooser_panel->SetSizer(chooser_sizer);
+
+    sizer->Add(chooser_panel, 0, wxALIGN_CENTER, 0);
+
+
+
+    button_panel = new wxPanel(this, wxID_ANY);
+    wxSizer *button_sizer = new wxBoxSizer(wxHORIZONTAL);;
     wxStaticText *choose_text = new wxStaticText(button_panel, wxID_ANY,
                                                  "Choose:");
     wxButton *rock_button     = new wxButton(button_panel, wxID_ANY,
@@ -41,13 +63,13 @@ void ButtonPanel::init()
     button_panel->SetSizer(button_sizer);
 
     // Panels and Sizers
-    wxPanel *chosen_panel = new wxPanel(this, wxID_ANY);
+    chosen_panel = new wxPanel(this, wxID_ANY);
     wxSizer *chosen_sizer = new wxGridSizer(2, 0, 5);
-    wxPanel *computer_panel = new wxPanel(this, wxID_ANY);
+    computer_panel = new wxPanel(this, wxID_ANY);
     wxSizer *computer_sizer = new wxGridSizer(2, 0, 5);
-    wxPanel *winner_panel = new wxPanel(this, wxID_ANY);
+    winner_panel = new wxPanel(this, wxID_ANY);
     wxSizer *winner_sizer = new wxGridSizer(2, 0, 5);
-    wxPanel *stats_panel = new wxPanel(this, wxID_ANY);
+    stats_panel = new wxPanel(this, wxID_ANY);
     wxSizer *stats_sizer = new wxGridSizer(2, 0, 5);
 
     // Static Text
@@ -90,7 +112,7 @@ void ButtonPanel::init()
     computer_sizer->Add(computerNextPick_title, 0, wxALIGN_RIGHT, 0);
     computer_sizer->Add(computerNextPick_text, 0, 0, 0);
     computer_panel->SetSizer(computer_sizer);
-    
+
     // Winner
     winner_text = new wxStaticText(winner_panel, wxID_ANY, "");
     winner_sizer->Add(winner_title, 0, wxALIGN_RIGHT, 0);
@@ -134,6 +156,43 @@ void ButtonPanel::init()
     sizer->Add(stats_panel, 0, wxALIGN_CENTER, 0);
     sizer->AddSpacer(20);
     SetSizer(sizer);
+
+    button_panel->Disable();
+    chosen_panel->Disable();
+    computer_panel->Disable();
+    winner_panel->Disable();
+    stats_panel->Disable();
+
+}
+
+void ButtonPanel::on_ML(wxCommandEvent& event)
+{
+    chooser_panel->Hide();
+
+    game->setCpu('m');
+    //init();
+    show_game();
+}
+
+void ButtonPanel::on_rand(wxCommandEvent& event)
+{
+    chooser_panel->Hide();
+
+    game->setCpu('r');
+    show_game();
+}
+
+void ButtonPanel::show_game()
+{
+    button_panel->Enable();
+
+    chosen_panel->Enable();
+
+    computer_panel->Enable();
+
+    winner_panel->Enable();
+
+    stats_panel->Enable();
 }
 
 void ButtonPanel::on_rock(wxCommandEvent& event)
@@ -231,6 +290,6 @@ void ButtonPanel::update_stats_text(char wtl)
     else 
     {
         ties_text->SetLabelText(round_count_to_wxString(game->getPlayer()->getTies()));
-        winner_text->SetLabelText("Tie!");
+        winner_text->SetLabelText("Draw!");
     }
 }

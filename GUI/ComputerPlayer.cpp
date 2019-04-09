@@ -58,7 +58,7 @@ int ComputerPlayer::strToInt(std::string line)
     std::string::size_type sz;   // alias of size_t
 
     // convert string temp to int
-    int i_dec = std::stoi (temp, &sz);
+    int i_dec = std::stoi(temp, &sz);
     return i_dec;
 }
 

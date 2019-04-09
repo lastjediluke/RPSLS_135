@@ -9,11 +9,12 @@ GameInstance::GameInstance()
     gameCount = 0;
     pattern = "";
 
-    // Assignment 5 Luke mod
-    std::cout << "Would you like the CPU to pick randomly or use machine learning?" << std::endl;
+    // Assignment 5 Yosef mod - disabled to show off GUI functionality
+    /*std::cout << "Would you like the CPU to pick randomly or use machine learning?" << std::endl;
     std::cout << "Press m for machine learning and any other key for random" << std::endl;
     std::cin >> temp;
     cpu = new ComputerPlayer(temp);
+    */
     myPlayer = new HumanPlayer();
 
     // game loop isn't being used for Assignment 5
@@ -34,6 +35,11 @@ void GameInstance::printInstructions()
     std::cout << "Press 's' to pick scissors" << std::endl;
     // std::cout << "Press 'l' to pick lizard" << std::endl;
     // std::cout << "Press 'v' to pick spock" << std::endl;
+}
+
+void GameInstance::setCpu(char choice)
+{
+    cpu = new ComputerPlayer(choice);
 }
 
 bool GameInstance::isValidHand(char key)

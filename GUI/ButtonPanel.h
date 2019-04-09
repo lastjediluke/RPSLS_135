@@ -23,12 +23,7 @@ public:
      */
     ButtonPanel(wxFrame *parent) : wxPanel(parent, wxID_ANY)
     {
-        // Luke mod
-        // myPlayer = new HumanPlayer();
-        // cpu = new ComputerPlayer('r');
-
         init();
-
         round_count = 1;
         game = new GameInstance();
         getPattern = "";

@@ -26,13 +26,20 @@ public:
         // Luke mod
         // myPlayer = new HumanPlayer();
         // cpu = new ComputerPlayer('r');
+
+        // Yosef's code to choose ML or random AI
+        chooserSelectionInit();
+
         round_count = 1;
         game = new GameInstance();
         getPattern = "";
-        init();
+        //init();
     }
 
     std::string getPattern;
+
+    void on_ML(wxCommandEvent& event);
+    void on_rand(wxCommandEvent& event);
 
     /**
      * Event handler for the rock button.
@@ -53,6 +60,15 @@ public:
     void on_scissors(wxCommandEvent& event);
 
 private:
+    // facilitates closing the chooser panel window after a chooser is selected
+    wxPanel *chooser_panel;
+    wxSizer *c_sizer;
+    wxSizer *chooser_sizer;
+    wxStaticText *chooser_text;
+    wxButton *ML_button;
+    wxButton *rand_button;
+    wxPanel *button_panel;
+
     wxStaticText *button_chosen_text;
     wxStaticText *winner_text;
     wxStaticText *round_counter_text;
@@ -66,12 +82,13 @@ private:
     int round_count;
     GameInstance *game;
 
+    char playerChoice;
     /**
      * Initialize the panel contents.
      */
     void init();
     void winnerInit();
-
+    void chooserSelectionInit();
     /**
      * Update the displayed button choice object.
      * @param choice the chosen object.

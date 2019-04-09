@@ -14,12 +14,38 @@ void ButtonPanel::winnerInit()
     winner_panel->SetSizer(winner_sizer); 
 }
 
-void ButtonPanel::init()
+void ButtonPanel::chooserSelectionInit()
 {
     // Buttons
+    chooser_panel = new wxPanel(this, wxID_ANY);
+    c_sizer = new wxBoxSizer(wxVERTICAL);
+    chooser_sizer = new wxBoxSizer(wxHORIZONTAL);
+    chooser_text = new wxStaticText(chooser_panel, wxID_ANY,
+                                             "Choose ML or random chooser:");
+    ML_button       = new wxButton(chooser_panel, wxID_ANY,
+                                             "Machine Learning");
+    rand_button     = new wxButton(chooser_panel, wxID_ANY,
+                                             "Rand");
+    ML_button->Bind(wxEVT_BUTTON, &ButtonPanel::on_ML, this);
+    rand_button->Bind(wxEVT_BUTTON, &ButtonPanel::on_rand, this);
+
+    chooser_sizer->Add(chooser_text, 0, 0, 0);
+    chooser_sizer->AddSpacer(5);
+    chooser_sizer->Add(ML_button, 0, 0, 0);
+    chooser_sizer->AddSpacer(5);
+    chooser_sizer->Add(rand_button, 0, 0, 0);
+    chooser_panel->SetSizer(chooser_sizer);
+
+    c_sizer->Add(chooser_panel, 0, wxALIGN_CENTER, 0);
+    c_sizer->AddSpacer(20);
+    SetSizer(c_sizer);
+}
+
+void ButtonPanel::init()
+{
+    button_panel = new wxPanel(this, wxID_ANY);
     wxSizer *sizer = new wxBoxSizer(wxVERTICAL);
-    wxPanel *button_panel = new wxPanel(this, wxID_ANY);
-    wxSizer *button_sizer = new wxBoxSizer(wxHORIZONTAL);
+    wxSizer *button_sizer = new wxBoxSizer(wxHORIZONTAL);;
     wxStaticText *choose_text = new wxStaticText(button_panel, wxID_ANY,
                                                  "Choose:");
     wxButton *rock_button     = new wxButton(button_panel, wxID_ANY,
@@ -134,6 +160,23 @@ void ButtonPanel::init()
     sizer->Add(stats_panel, 0, wxALIGN_CENTER, 0);
     sizer->AddSpacer(20);
     SetSizer(sizer);
+
+}
+
+void ButtonPanel::on_ML(wxCommandEvent& event)
+{
+    chooser_panel->Show(false);
+    chooser_panel->Layout();
+    game->setCpu('m');
+    init();
+}
+
+void ButtonPanel::on_rand(wxCommandEvent& event)
+{
+    chooser_panel->Show(false);
+    chooser_panel->Layout();
+    game->setCpu('r');
+    init();
 }
 
 void ButtonPanel::on_rock(wxCommandEvent& event)
@@ -231,6 +274,6 @@ void ButtonPanel::update_stats_text(char wtl)
     else 
     {
         ties_text->SetLabelText(round_count_to_wxString(game->getPlayer()->getTies()));
-        winner_text->SetLabelText("Tie!");
+        winner_text->SetLabelText("Draw!");
     }
 }

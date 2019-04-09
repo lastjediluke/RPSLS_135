@@ -43,7 +43,7 @@ private:
     wxDECLARE_EVENT_TABLE();
 
     ButtonPanel *button_panel;
-    wxInt8 m_Rounds;
+    wxString m_Rounds;
     wxButton* m_OK;
     wxButton* m_cancel;
     wxTextCtrl* m_textField;

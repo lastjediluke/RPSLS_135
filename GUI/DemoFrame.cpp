@@ -1,4 +1,5 @@
 #include "DemoFrame.h"
+#include <string>
 
 // The event table.
 wxBEGIN_EVENT_TABLE(DemoFrame, wxFrame)
@@ -47,6 +48,8 @@ void DemoFrame::init_menu_bar()
     wxMenu *settingsMenu = new wxMenu;
     settingsMenu->Append(RPS_Rounds,  "&Rounds\tAlt-R", "Select number of rounds");
 
+
+
     wxMenuBar *menuBar = new wxMenuBar();
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(helpMenu, "&Help");
@@ -88,27 +91,28 @@ void DemoFrame::on_rounds(wxCommandEvent& event)
 /*
       if (event.GetId() == wxID_OK) //when OK button is pressed
     { 
-        wxString name = m_textField->GetValue();
-        if ( !name.empty() ) //when something is in the textbox
+        wxString round = m_textField->GetValue();
+	int roundInt = std::stoi(round,nullptr);
+        if ( !round.empty() ) //when something is in the textbox
         {
-            if (name.Contains(wxT('@'))) //invalid name, show pop-up error message.
+            if ((roundInt<1) | (roundInt>100)) //invalid number of rounds, show pop-up error message.
             {
-                wxMessageBox(wxT("Names should not contain the '@' character"), wxT("Forty Thieves"));
+                wxMessageBox(wxT("Invalid number, please enter value between 1 and 100"), wxT("RPSLS"));
             }
-            else //valid name is in textbox, close window
+            else //valid number of rounds is in textbox, close window
             {
-                m_player = name;
+                m_Rounds = round;
                 EndModal(wxID_OK); //closes pop-up window
             }
         }
         else //when OK button pressed but nothing is in the textbox, show pop-up error message.
         {
-             wxMessageBox(wxT("Please enter your name"), wxT("Forty Thieves"));
+             wxMessageBox(wxT("Please enter number of rounds 1-100"), wxT("RPSLS"));
         }
     }
     else //when Cancel button was pressed
     {
-        m_player = wxEmptyString;
+        m_Rounds = wxEmptyString;
         EndModal(wxID_CANCEL); //closes app
     }
 */

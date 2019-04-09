@@ -27,13 +27,11 @@ public:
         // myPlayer = new HumanPlayer();
         // cpu = new ComputerPlayer('r');
 
-        // Yosef's code to choose ML or random AI
-        chooserSelectionInit();
+        init();
 
         round_count = 1;
         game = new GameInstance();
         getPattern = "";
-        //init();
     }
 
     std::string getPattern;
@@ -62,12 +60,17 @@ public:
 private:
     // facilitates closing the chooser panel window after a chooser is selected
     wxPanel *chooser_panel;
-    wxSizer *c_sizer;
     wxSizer *chooser_sizer;
     wxStaticText *chooser_text;
     wxButton *ML_button;
     wxButton *rand_button;
+
+    // necessary to show these panels again after chooser is selected
     wxPanel *button_panel;
+    wxPanel *chosen_panel;
+    wxPanel *computer_panel;
+    wxPanel *winner_panel;
+    wxPanel *stats_panel;
 
     wxStaticText *button_chosen_text;
     wxStaticText *winner_text;
@@ -88,7 +91,8 @@ private:
      */
     void init();
     void winnerInit();
-    void chooserSelectionInit();
+
+    void show_game();
     /**
      * Update the displayed button choice object.
      * @param choice the chosen object.

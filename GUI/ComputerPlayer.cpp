@@ -117,7 +117,7 @@ void ComputerPlayer::toTextFile(std::string s)
     fin.close(); 
 }
 
-void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
+void ComputerPlayer::makePrediction(std::string s, int patternLen)
 {
     // at this point, cpu will pick a random hand and prepare for his educated pick                             
     // append the arrayNum[RandIndex] to the end of the pattern
@@ -128,7 +128,7 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
     bool found = false;
     int bigFreq = 0;
     std::string bigString = "";
-    s = s + c;
+    // s = s + c;
     if (myfile.is_open())
     {
         while ( getline (myfile,line) )
@@ -150,10 +150,12 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
         // if the bigString == "", then pick a random hand
         if (bigString == "" || s.length() < patternLen - 2)
         {
+            std:: cout << "Picking rando" << std::endl;
             prediction = 'x';
         }
         else 
         {
+            std::cout << "Big string " << bigString << std::endl;
             switch(bigString[4])
             {
                 case 'r': { prediction = 'p'; break; }
@@ -162,6 +164,7 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
                 case 'l': { prediction = 'r'; break; }
                 case 'v': { prediction = 'p'; break; }
             }
+            std::cout << "Winning Prediction in ComputerPlayer: " << prediction << std::endl;
         }
     }
     else std::cout << "Unable to open file"; 
@@ -169,9 +172,10 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
 
 char ComputerPlayer::setHand(std::string s, int patternLen, char difficulty)
 {  
+    // makePrediction(s, patternLen);
     char choice = chooser->make_choice(s, patternLen, prediction);
     cpuHand.setHand(choice);
-    makePrediction(s, patternLen, choice);
+    
     /*
     if (s.length() == patternLen - 2 && randFlag == false)
     {
@@ -191,3 +195,5 @@ void ComputerPlayer::setScore(int sc)
     }
 }
 
+
+// rpr_rp then drop the last two

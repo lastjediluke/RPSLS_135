@@ -85,18 +85,15 @@ std::string GameInstance::recordHand(char a, int patternSize)
     
     if (pattern.length() == patternSize)
     {
-        
-        std::string temp = pattern;
         cpu->toTextFile(pattern);
 
-        // clear the pattern
-        pattern = "";
-        return temp;
+        // erase first two chars in the string
+        pattern = pattern.erase(0, 2);
+        std::cout << pattern << " with 3" << std::endl;
     }
     pattern += a;
-    
     return pattern;
-    }
+}
 
 void GameInstance::startGameLoop()
 {

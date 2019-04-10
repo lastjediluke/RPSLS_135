@@ -11,47 +11,43 @@
 #include <fstream>
 #include "Choice.h"
 
-/**
+/*
  * The button panel of the application frame.
  */
 class ButtonPanel : public wxPanel
 {
 public:
-    /**
+    /*
      * Constructor.
      * @param parent the parent frame.
      */
     ButtonPanel(wxFrame *parent) : wxPanel(parent, wxID_ANY)
     {
-        // Luke mod
-        // myPlayer = new HumanPlayer();
-        // cpu = new ComputerPlayer('r');
-
         init();
-
         round_count = 1;
         game = new GameInstance();
         getPattern = "";
+        playerChar = '\0';
     }
 
     std::string getPattern;
-
+    char playerChar;
     void on_ML(wxCommandEvent& event);
     void on_rand(wxCommandEvent& event);
 
-    /**
+    /*
      * Event handler for the rock button.
      * @param event the button click event.
      */
     void on_rock(wxCommandEvent& event);
 
-    /**
+    /*
      * Event handler for the paper button.
      * @param event the button click event.
      */
     void on_paper(wxCommandEvent& event);
 
-    /**
+    /*
      * Event handler for the scissors button.
      * @param event the button click event.
      */
@@ -72,6 +68,7 @@ private:
     wxPanel *winner_panel;
     wxPanel *stats_panel;
 
+    // texts
     wxStaticText *button_chosen_text;
     wxStaticText *winner_text;
     wxStaticText *round_counter_text;
@@ -82,17 +79,18 @@ private:
     wxStaticText *blank_text;
     wxStaticText *humanPrediction_text;
     wxStaticText *computerNextPick_text;
+
     int round_count;
     GameInstance *game;
-
     char playerChoice;
+
     /**
      * Initialize the panel contents.
      */
     void init();
     void winnerInit();
-
     void show_game();
+
     /**
      * Update the displayed button choice object.
      * @param choice the chosen object.

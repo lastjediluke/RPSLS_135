@@ -157,19 +157,19 @@ void ButtonPanel::init()
     sizer->AddSpacer(20);
     SetSizer(sizer);
 
+    // Yosef
     button_panel->Disable();
     chosen_panel->Disable();
     computer_panel->Disable();
     winner_panel->Disable();
     stats_panel->Disable();
-
 }
 
 void ButtonPanel::on_ML(wxCommandEvent& event)
 {
     chooser_panel->Hide();
-
     game->setCpu('m');
+    
     //init();
     show_game();
 }
@@ -177,7 +177,6 @@ void ButtonPanel::on_ML(wxCommandEvent& event)
 void ButtonPanel::on_rand(wxCommandEvent& event)
 {
     chooser_panel->Hide();
-
     game->setCpu('r');
     show_game();
 }
@@ -185,50 +184,49 @@ void ButtonPanel::on_rand(wxCommandEvent& event)
 void ButtonPanel::show_game()
 {
     button_panel->Enable();
-
     chosen_panel->Enable();
-
     computer_panel->Enable();
-
     winner_panel->Enable();
-
     stats_panel->Enable();
 }
 
 void ButtonPanel::on_rock(wxCommandEvent& event)
 {
-    char playerChar = game->getPlayer()->setHand('r');
-    getPattern = game->recordHand(playerChar, 5);
+    playerChar = game->getPlayer()->setHand('r');
     update_button_choice_text(ROCK);
 }
 
 void ButtonPanel::on_paper(wxCommandEvent& event)
 {
-    char playerChar = game->getPlayer()->setHand('p');
-    getPattern = game->recordHand(playerChar, 5);
+    playerChar = game->getPlayer()->setHand('p');
     update_button_choice_text(PAPER);
 }
 
 void ButtonPanel::on_scissors(wxCommandEvent& event)
 {
-    char playerChar = game->getPlayer()->setHand('s');
-    getPattern = game->recordHand(playerChar, 5);
+    playerChar = game->getPlayer()->setHand('s');
     update_button_choice_text(SCISSORS);  
 }
 
 void ButtonPanel::update_button_choice_text(const Choice choice)
 {
-    
     button_chosen_text->SetLabelText(choice_to_wxString(choice));
     char cpuChar = game->getCpu()->setHand(getPattern, 5, 'm');
     game->setRoundCount();
+
+    // record human hand then cpu hand
+    getPattern = game->recordHand(playerChar, 5);
     getPattern = game->recordHand(cpuChar, 5);
+
+    // make prediction for next round
+    game->getCpu()->makePrediction(getPattern, 5);
+    updatePredictions(game->getCpu()->getPrediction());
+
+    // get the winner
     Hands::handType win = Hands::getWinner(game->getPlayer()->getHand(), game->getCpu()->getHand());
     char winner = game->updateScore(win);
     update_stats_text(winner);
-    char pred = game->getCpu()->getPrediction();
-    updatePredictions(pred);
-
+    
     // end of game
     if (game->getRoundCount() == 21)
     {
@@ -293,3 +291,8 @@ void ButtonPanel::update_stats_text(char wtl)
         winner_text->SetLabelText("Draw!");
     }
 }
+
+// record human
+// record cpu 
+// record human
+// record cpu then predict 

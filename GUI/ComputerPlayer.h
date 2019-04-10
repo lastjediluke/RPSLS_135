@@ -28,7 +28,7 @@ public:
     void toTextFile(std::string s);
     int strToInt(std::string line);
     bool getRandFlag() { return randFlag; }
-    void makePrediction(std::string s, int patternLen, char c);
+    void makePrediction(std::string s, int patternLen);
 private:
     int wins;
     int losses;

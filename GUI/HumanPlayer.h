@@ -13,6 +13,8 @@ public:
     void setScore(int sc);
     void getScore();
     Hands::handType getHand() { return playerHand.getHand(); }
+    int getWins() { return wins; }
+    int getTies() { return ties; }
 private:
     int wins;
     int losses;

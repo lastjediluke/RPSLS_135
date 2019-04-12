@@ -21,6 +21,8 @@ public:
     void setCpu(char choice);
     bool isValidHand(char key);
     char updateScore(Hands::handType winner);
+    int getRoundMax()       { return roundMax;      }
+    void setRoundMax(int x){ roundMax = x;         }  
     int getRoundCount()     { return roundCount;    }
     int getGameCount()      { return gameCount;     }
     int setRoundCount()     { return roundCount++;  }
@@ -40,6 +42,7 @@ private:
     HumanPlayer *myPlayer;
     int roundCount;
     int gameCount;
+    int roundMax;
     
 };
 

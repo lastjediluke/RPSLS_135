@@ -2,9 +2,7 @@
 
 
 GameInstance::GameInstance()
-{
-    DemoFrame DFO;
-  
+{ 
     // moved cpu and player down into gameloop
     char temp;  
     roundCount = 1;
@@ -112,7 +110,7 @@ void GameInstance::startGameLoop()
     do
     {
         setRoundCount();
-        if(getRoundCount() == DFO.getRes +1)
+        if(getRoundCount() == getRoundMax() + 1)
         {
             std::cout << "Game Over!" << std::endl;
             myPlayer->getScore();
@@ -160,10 +158,6 @@ void GameInstance::startGameLoop()
     std::cout << "You have now quit the game" << std::endl;
 }
 
-void linkRes(res)
-{
-    maxRounds = res;
-}
 
 /* To DO
 

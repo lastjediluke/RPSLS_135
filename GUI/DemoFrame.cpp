@@ -93,7 +93,7 @@ void DemoFrame::on_rounds(wxCommandEvent& event)
                                     wxT("Enter a number from 1 to 100."),
                                     wxT("Enter a number:"), wxT("Number of rounds"),
                                      20, 1, 100, this ); //creates window + textbox + text for user to enter value
-
+        setRoundMax(res);
     wxString msg;
     if ( res == -1 ) //result if user presses cancel or enters value outside the range
     {
@@ -107,9 +107,6 @@ void DemoFrame::on_rounds(wxCommandEvent& event)
 	//verification pop-up + OK button
 	wxMessageBox(msg, wxT("Number of rounds"), wxOK | wxICON_INFORMATION, this);
 
-}
+  
 
-long getRes()
-{
-    return res;
 }

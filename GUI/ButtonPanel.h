@@ -25,6 +25,7 @@ public:
     {
         init();
         round_count = 1;
+        roundMax = 20;
         game = new GameInstance();
         getPattern = "";
         playerChar = '\0';
@@ -34,6 +35,11 @@ public:
     char playerChar;
     void on_ML(wxCommandEvent& event);
     void on_rand(wxCommandEvent& event);
+
+    // Luke
+    void setRoundMax(int max)   { roundMax = max; }
+    int getRoundMax()           { return roundMax; }
+    
 
     /*
      * Event handler for the rock button.
@@ -83,6 +89,10 @@ private:
     int round_count;
     GameInstance *game;
     char playerChoice;
+
+    // Luke
+    int roundMax;
+    
 
     /**
      * Initialize the panel contents.

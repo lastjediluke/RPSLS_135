@@ -70,13 +70,13 @@ void DemoFrame::init_sizer()
 void DemoFrame::on_about(wxCommandEvent& WXUNUSED(event))
 {
     wxMessageBox(wxString::Format(
-                    "This is a button demo\n"
+                    "This is a Rock, Paper, Scissors game\n"
                     "built with %s\n"
                     "and running under %s.",
                     wxVERSION_STRING,
                     wxGetOsDescription()
                 ),
-                "About the button demo",
+                "About the game",
                 wxOK | wxICON_INFORMATION,
                 this);
 }
@@ -88,6 +88,7 @@ void DemoFrame::on_quit(wxCommandEvent& WXUNUSED(event))
 
 void DemoFrame::on_rounds(wxCommandEvent& event)
 {
+<<<<<<< HEAD
 
 	    res = wxGetNumberFromUser( wxT("Please enter how many rounds you would like to play.\n")
                                     wxT("Enter a number from 1 to 100."),
@@ -100,13 +101,37 @@ void DemoFrame::on_rounds(wxCommandEvent& event)
         msg = wxT("Invalid number entered or dialog cancelled.");     
     }
     else //result if value entered is valid
+=======
+    // int *roundMaxPtr = &roundMax;
+    // creates window + textbox + text for user to enter value
+    res = wxGetNumberFromUser( 
+        wxT("Please enter how many rounds you would like to play.\n")
+        wxT("Enter a number from 1 to 100."),
+        wxT("Enter a number:"), 
+        wxT("Number of rounds"),
+        20, 1, 100, this ); 
+    // GameInstance::setRoundMax(res);
+    button_panel->setRoundMax(res);
+    // *roundMaxPtr = res;
+    wxString msg;
+    if ( res == -1 ) // result if user presses cancel or enters value outside the range
+    {
+        msg = wxT("Invalid number entered or dialog cancelled.");     
+    }
+    else            // result if value entered is valid
+>>>>>>> f1ea0d948d4923bcdf0a934143981ead2314133e
     {
         msg.Printf(wxT("You've entered %lu"), res );
     }
 
+<<<<<<< HEAD
 	//verification pop-up + OK button
 	wxMessageBox(msg, wxT("Number of rounds"), wxOK | wxICON_INFORMATION, this);
 
   
 
+=======
+    // verification pop-up + OK button
+	wxMessageBox(msg, wxT("Number of rounds"), wxOK | wxICON_INFORMATION, this);
+>>>>>>> f1ea0d948d4923bcdf0a934143981ead2314133e
 }

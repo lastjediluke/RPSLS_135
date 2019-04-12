@@ -10,7 +10,12 @@
 
 
 
+<<<<<<< HEAD
 
+=======
+// Long
+// int roundMax = 0;
+>>>>>>> f1ea0d948d4923bcdf0a934143981ead2314133e
 class GameInstance
 {
 
@@ -21,8 +26,17 @@ public:
     void setCpu(char choice);
     bool isValidHand(char key);
     char updateScore(Hands::handType winner);
+<<<<<<< HEAD
     int getRoundMax()       { return roundMax;      }
     void setRoundMax(int x){ roundMax = x;         }  
+=======
+    
+
+    // Long
+    void setRoundMax(int x)  { roundMax = x;     }  
+    int getRoundMax()               { return roundMax;  }
+
+>>>>>>> f1ea0d948d4923bcdf0a934143981ead2314133e
     int getRoundCount()     { return roundCount;    }
     int getGameCount()      { return gameCount;     }
     int setRoundCount()     { return roundCount++;  }
@@ -37,12 +51,23 @@ public:
     int getComputerWins()       { return cpu->getWins();        }
     int getHumanWins()          { return myPlayer->getWins();   }
     int getTies()               { return myPlayer->getTies();   }
+
+    int roundMax;
+
+    
 private:
     ComputerPlayer *cpu;
     HumanPlayer *myPlayer;
     int roundCount;
     int gameCount;
+<<<<<<< HEAD
     int roundMax;
+=======
+
+    
+
+    
+>>>>>>> f1ea0d948d4923bcdf0a934143981ead2314133e
     
 };
 

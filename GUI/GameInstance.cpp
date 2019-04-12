@@ -95,6 +95,8 @@ std::string GameInstance::recordHand(char a, int patternSize)
     return pattern;
 }
 
+// not in use anymore
+/*
 void GameInstance::startGameLoop()
 {
     std::cout << "Game Loop Started" << std::endl;
@@ -157,6 +159,7 @@ void GameInstance::startGameLoop()
     } while (!quit);
     std::cout << "You have now quit the game" << std::endl;
 }
+*/
 
 
 /* To DO

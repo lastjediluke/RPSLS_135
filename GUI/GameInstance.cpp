@@ -2,9 +2,9 @@
 
 
 GameInstance::GameInstance()
-{
+{ 
     // moved cpu and player down into gameloop
-    char temp;
+    char temp;  
     roundCount = 1;
     gameCount = 0;
     pattern = "";
@@ -95,6 +95,8 @@ std::string GameInstance::recordHand(char a, int patternSize)
     return pattern;
 }
 
+// not in use anymore
+/*
 void GameInstance::startGameLoop()
 {
     std::cout << "Game Loop Started" << std::endl;
@@ -110,7 +112,7 @@ void GameInstance::startGameLoop()
     do
     {
         setRoundCount();
-        if(getRoundCount() == 21)
+        if(getRoundCount() == getRoundMax() + 1)
         {
             std::cout << "Game Over!" << std::endl;
             myPlayer->getScore();
@@ -157,6 +159,7 @@ void GameInstance::startGameLoop()
     } while (!quit);
     std::cout << "You have now quit the game" << std::endl;
 }
+*/
 
 /* To DO
 

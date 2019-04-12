@@ -228,7 +228,7 @@ void ButtonPanel::update_button_choice_text(const Choice choice)
     update_stats_text(winner);
     
     // end of game
-    if (game->getRoundCount() == 21)
+    if (game->getRoundCount() == getRoundMax() + 1)
     {
         std::cout << "Game Over!" << std::endl;
         game->getPlayer()->getScore();

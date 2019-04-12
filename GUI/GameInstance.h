@@ -9,8 +9,12 @@
 #include <fstream>
 
 
+
+// Long
+// int roundMax = 0;
 class GameInstance
 {
+
 public:
     GameInstance();
     void startGameLoop();
@@ -18,6 +22,12 @@ public:
     void setCpu(char choice);
     bool isValidHand(char key);
     char updateScore(Hands::handType winner);
+    
+
+    // Long
+    void setRoundMax(int x)  { roundMax = x;     }  
+    int getRoundMax()               { return roundMax;  }
+
     int getRoundCount()     { return roundCount;    }
     int getGameCount()      { return gameCount;     }
     int setRoundCount()     { return roundCount++;  }
@@ -32,11 +42,19 @@ public:
     int getComputerWins()       { return cpu->getWins();        }
     int getHumanWins()          { return myPlayer->getWins();   }
     int getTies()               { return myPlayer->getTies();   }
+
+    int roundMax;
+
+    
 private:
     ComputerPlayer *cpu;
     HumanPlayer *myPlayer;
     int roundCount;
     int gameCount;
+
+    
+
+    
     
 };
 

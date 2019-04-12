@@ -1,4 +1,5 @@
 #include "DemoFrame.h"
+#include <wx/numdlg.h>
 
 // The event table.
 wxBEGIN_EVENT_TABLE(DemoFrame, wxFrame)
@@ -47,6 +48,8 @@ void DemoFrame::init_menu_bar()
     wxMenu *settingsMenu = new wxMenu;
     settingsMenu->Append(RPS_Rounds,  "&Rounds\tAlt-R", "Select number of rounds");
 
+
+
     wxMenuBar *menuBar = new wxMenuBar();
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(helpMenu, "&Help");
@@ -67,13 +70,13 @@ void DemoFrame::init_sizer()
 void DemoFrame::on_about(wxCommandEvent& WXUNUSED(event))
 {
     wxMessageBox(wxString::Format(
-                    "This is a button demo\n"
+                    "This is a Rock, Paper, Scissors game\n"
                     "built with %s\n"
                     "and running under %s.",
                     wxVERSION_STRING,
                     wxGetOsDescription()
                 ),
-                "About the button demo",
+                "About the game",
                 wxOK | wxICON_INFORMATION,
                 this);
 }
@@ -85,31 +88,27 @@ void DemoFrame::on_quit(wxCommandEvent& WXUNUSED(event))
 
 void DemoFrame::on_rounds(wxCommandEvent& event)
 {
-/*
-      if (event.GetId() == wxID_OK) //when OK button is pressed
-    { 
-        wxString name = m_textField->GetValue();
-        if ( !name.empty() ) //when something is in the textbox
-        {
-            if (name.Contains(wxT('@'))) //invalid name, show pop-up error message.
-            {
-                wxMessageBox(wxT("Names should not contain the '@' character"), wxT("Forty Thieves"));
-            }
-            else //valid name is in textbox, close window
-            {
-                m_player = name;
-                EndModal(wxID_OK); //closes pop-up window
-            }
-        }
-        else //when OK button pressed but nothing is in the textbox, show pop-up error message.
-        {
-             wxMessageBox(wxT("Please enter your name"), wxT("Forty Thieves"));
-        }
-    }
-    else //when Cancel button was pressed
+    // int *roundMaxPtr = &roundMax;
+    // creates window + textbox + text for user to enter value
+    res = wxGetNumberFromUser( 
+        wxT("Please enter how many rounds you would like to play.\n")
+        wxT("Enter a number from 1 to 100."),
+        wxT("Enter a number:"), 
+        wxT("Number of rounds"),
+        20, 1, 100, this ); 
+    // GameInstance::setRoundMax(res);
+    button_panel->setRoundMax(res);
+    // *roundMaxPtr = res;
+    wxString msg;
+    if ( res == -1 ) // result if user presses cancel or enters value outside the range
     {
-        m_player = wxEmptyString;
-        EndModal(wxID_CANCEL); //closes app
+        msg = wxT("Invalid number entered or dialog cancelled.");     
     }
-*/
+    else            // result if value entered is valid
+    {
+        msg.Printf(wxT("You've entered %lu"), res );
+    }
+
+    // verification pop-up + OK button
+	wxMessageBox(msg, wxT("Number of rounds"), wxOK | wxICON_INFORMATION, this);
 }

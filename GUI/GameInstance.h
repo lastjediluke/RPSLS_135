@@ -32,6 +32,7 @@ public:
     int getGameCount()      { return gameCount;     }
     int setRoundCount()     { return roundCount++;  }
     int setGameCount()      { return gameCount++;   }
+    void resetStats();
     int resetRoundCount()   { roundCount = 1; return roundCount; }
     std::string recordHand(char a, int patternSize);
     std::string pattern;

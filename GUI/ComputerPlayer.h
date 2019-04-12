@@ -21,6 +21,7 @@ public:
     void getScore();
     void setPrediction(char c) { prediction = c; }
     int getWins() { return wins; }
+    void resetWins() { wins = 0; }
 
     // new funcs for Assignment 4
     void insertNewPattern(std::string s);

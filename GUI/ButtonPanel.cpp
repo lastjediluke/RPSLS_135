@@ -210,6 +210,15 @@ void ButtonPanel::on_scissors(wxCommandEvent& event)
 
 void ButtonPanel::update_button_choice_text(const Choice choice)
 {
+    // if it is game over, reset the text on screen
+    if (gameOver)
+    {
+        gameOver = false;
+        humanWins_text->SetLabelText("0");
+        computerWins_text->SetLabelText("0");
+        ties_text->SetLabelText("0");
+    }
+
     button_chosen_text->SetLabelText(choice_to_wxString(choice));
     char cpuChar = game->getCpu()->setHand(getPattern, 5, 'm');
     game->setRoundCount();
@@ -234,6 +243,10 @@ void ButtonPanel::update_button_choice_text(const Choice choice)
         game->getPlayer()->getScore();
         game->getCpu()->getScore();
         game->resetRoundCount();
+        gameOver = true;
+        // reset stats
+        game->resetStats();
+        
     }
     update_round_counter_text(game->getRoundCount());
     std::cout << "Round " << game->getRoundCount() << std::endl;

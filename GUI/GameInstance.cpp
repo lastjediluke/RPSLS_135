@@ -48,6 +48,13 @@ bool GameInstance::isValidHand(char key)
     else return false;
 }
 
+void GameInstance::resetStats()
+{
+    myPlayer->resetTies();
+    myPlayer->resetWins();
+    cpu->resetWins();
+}
+
 char GameInstance::updateScore(Hands::handType winner)
 {
     if (winner == Hands::tie)

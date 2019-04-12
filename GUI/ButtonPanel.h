@@ -28,6 +28,7 @@ public:
         roundMax = 20;
         game = new GameInstance();
         getPattern = "";
+        gameOver = false;
         playerChar = '\0';
     }
 
@@ -39,6 +40,7 @@ public:
     // Luke
     void setRoundMax(int max)   { roundMax = max; }
     int getRoundMax()           { return roundMax; }
+    bool gameOver;
     
 
     /*

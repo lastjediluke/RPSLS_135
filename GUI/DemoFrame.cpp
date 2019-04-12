@@ -1,5 +1,5 @@
 #include "DemoFrame.h"
-#include <string>
+#include <wx/numdlg.h>
 
 // The event table.
 wxBEGIN_EVENT_TABLE(DemoFrame, wxFrame)
@@ -88,32 +88,22 @@ void DemoFrame::on_quit(wxCommandEvent& WXUNUSED(event))
 
 void DemoFrame::on_rounds(wxCommandEvent& event)
 {
-/*
-      if (event.GetId() == wxID_OK) //when OK button is pressed
-    { 
-        wxString round = m_textField->GetValue();
-	int roundInt = std::stoi(round,nullptr);
-        if ( !round.empty() ) //when something is in the textbox
-        {
-            if ((roundInt<1) | (roundInt>100)) //invalid number of rounds, show pop-up error message.
-            {
-                wxMessageBox(wxT("Invalid number, please enter value between 1 and 100"), wxT("RPSLS"));
-            }
-            else //valid number of rounds is in textbox, close window
-            {
-                m_Rounds = round;
-                EndModal(wxID_OK); //closes pop-up window
-            }
-        }
-        else //when OK button pressed but nothing is in the textbox, show pop-up error message.
-        {
-             wxMessageBox(wxT("Please enter number of rounds 1-100"), wxT("RPSLS"));
-        }
-    }
-    else //when Cancel button was pressed
+
+	    long res = wxGetNumberFromUser( wxT("Please enter how many rounds you would like to play.\n")
+                                    wxT("Enter a number from 1 to 100."),
+                                    wxT("Enter a number:"), wxT("Number of rounds"),
+                                     20, 1, 100, this ); //creates window + textbox + text for user to enter value
+
+    wxString msg;
+    if ( res == -1 ) //result if user presses cancel or enters value outside the range
     {
-        m_Rounds = wxEmptyString;
-        EndModal(wxID_CANCEL); //closes app
+        msg = wxT("Invalid number entered or dialog cancelled.");     
     }
-*/
+    else //result if value entered is valid
+    {
+        msg.Printf(wxT("You've entered %lu"), res );
+    }
+
+	//verification pop-up + OK button
+	wxMessageBox(msg, wxT("Number of rounds"), wxOK | wxICON_INFORMATION, this);
 }

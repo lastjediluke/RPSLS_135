@@ -38,6 +38,9 @@ public:
      */
     void on_rounds(wxCommandEvent& event);
 
+    long getRes();
+    
+
 private:
     // The event table that maps events to their handlers.
     wxDECLARE_EVENT_TABLE();
@@ -62,6 +65,9 @@ private:
      * Initialize the application frame's sizer.
      */
     void init_sizer();
+
+    long res;
+
 };
 
 // IDs for the menu commands.

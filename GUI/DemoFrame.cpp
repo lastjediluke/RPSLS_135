@@ -89,7 +89,7 @@ void DemoFrame::on_quit(wxCommandEvent& WXUNUSED(event))
 void DemoFrame::on_rounds(wxCommandEvent& event)
 {
 
-	    long res = wxGetNumberFromUser( wxT("Please enter how many rounds you would like to play.\n")
+	    res = wxGetNumberFromUser( wxT("Please enter how many rounds you would like to play.\n")
                                     wxT("Enter a number from 1 to 100."),
                                     wxT("Enter a number:"), wxT("Number of rounds"),
                                      20, 1, 100, this ); //creates window + textbox + text for user to enter value
@@ -106,4 +106,10 @@ void DemoFrame::on_rounds(wxCommandEvent& event)
 
 	//verification pop-up + OK button
 	wxMessageBox(msg, wxT("Number of rounds"), wxOK | wxICON_INFORMATION, this);
+
+}
+
+long getRes()
+{
+    return res;
 }

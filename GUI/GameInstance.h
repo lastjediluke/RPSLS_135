@@ -9,8 +9,11 @@
 #include <fstream>
 
 
+
+
 class GameInstance
 {
+
 public:
     GameInstance();
     void startGameLoop();

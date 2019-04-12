@@ -19,8 +19,8 @@ rrrpr:8
 rprsr:5
 rrrps:2
 sssss:18
-srsrs:11
-spsps:10
+srsrs:13
+spsps:15
 rrpps:2
 rspss:4
 rsssr:1
@@ -35,7 +35,7 @@ spppp:2
 psppr:1
 prsss:2
 srsss:2
-srsps:1
+srsps:2
 spsrs:2
 spsss:1
 sssrs:3

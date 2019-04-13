@@ -58,7 +58,7 @@ int ComputerPlayer::strToInt(std::string line)
     std::string::size_type sz;   // alias of size_t
 
     // convert string temp to int
-    int i_dec = std::stoi (temp, &sz);
+    int i_dec = std::stoi(temp, &sz);
     return i_dec;
 }
 
@@ -117,7 +117,7 @@ void ComputerPlayer::toTextFile(std::string s)
     fin.close(); 
 }
 
-void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
+void ComputerPlayer::makePrediction(std::string s, int patternLen)
 {
     // at this point, cpu will pick a random hand and prepare for his educated pick                             
     // append the arrayNum[RandIndex] to the end of the pattern
@@ -128,7 +128,7 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
     bool found = false;
     int bigFreq = 0;
     std::string bigString = "";
-    s = s + c;
+    // s = s + c;
     if (myfile.is_open())
     {
         while ( getline (myfile,line) )
@@ -136,7 +136,6 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
             pos = line.find(s);
             if (pos != std::string::npos) 
             {
-                // std::cout << "Match in makePrediction()" << std::endl;
                 found = true;
                 int checkFreq = strToInt(line);
                 if(checkFreq > bigFreq)
@@ -147,15 +146,16 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
             }
         }
         myfile.close();
-        // std::cout << "Biggest String: " << bigString << std::endl;
 
         // if the bigString == "", then pick a random hand
-        if (bigString == "")
+        if (bigString == "" || s.length() < patternLen - 2)
         {
+            std:: cout << "Picking rando" << std::endl;
             prediction = 'x';
         }
         else 
         {
+            std::cout << "Big string " << bigString << std::endl;
             switch(bigString[4])
             {
                 case 'r': { prediction = 'p'; break; }
@@ -164,6 +164,7 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
                 case 'l': { prediction = 'r'; break; }
                 case 'v': { prediction = 'p'; break; }
             }
+            std::cout << "Winning Prediction in ComputerPlayer: " << prediction << std::endl;
         }
     }
     else std::cout << "Unable to open file"; 
@@ -171,13 +172,16 @@ void ComputerPlayer::makePrediction(std::string s, int patternLen, char c)
 
 char ComputerPlayer::setHand(std::string s, int patternLen, char difficulty)
 {  
+    // makePrediction(s, patternLen);
     char choice = chooser->make_choice(s, patternLen, prediction);
     cpuHand.setHand(choice);
+    
+    /*
     if (s.length() == patternLen - 2 && randFlag == false)
     {
         makePrediction(s, patternLen, choice);
     } 
-    
+    */
     return choice;
 }
 
@@ -191,3 +195,5 @@ void ComputerPlayer::setScore(int sc)
     }
 }
 
+
+// rpr_rp then drop the last two

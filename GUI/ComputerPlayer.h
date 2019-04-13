@@ -20,7 +20,8 @@ public:
     void setScore(int sc);
     void getScore();
     void setPrediction(char c) { prediction = c; }
-    
+    int getWins() { return wins; }
+    void resetWins() { wins = 0; }
 
     // new funcs for Assignment 4
     void insertNewPattern(std::string s);
@@ -28,7 +29,7 @@ public:
     void toTextFile(std::string s);
     int strToInt(std::string line);
     bool getRandFlag() { return randFlag; }
-    void makePrediction(std::string s, int patternLen, char c);
+    void makePrediction(std::string s, int patternLen);
 private:
     int wins;
     int losses;

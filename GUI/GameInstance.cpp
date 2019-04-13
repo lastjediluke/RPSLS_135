@@ -2,18 +2,19 @@
 
 
 GameInstance::GameInstance()
-{
+{ 
     // moved cpu and player down into gameloop
-    char temp;
-    roundCount = 0;
+    char temp;  
+    roundCount = 1;
     gameCount = 0;
     pattern = "";
 
-    // Assignment 5 Luke mod
-    std::cout << "Would you like the CPU to pick randomly or use machine learning?" << std::endl;
+    // Assignment 5 Yosef mod - disabled to show off GUI functionality
+    /*std::cout << "Would you like the CPU to pick randomly or use machine learning?" << std::endl;
     std::cout << "Press m for machine learning and any other key for random" << std::endl;
     std::cin >> temp;
     cpu = new ComputerPlayer(temp);
+    */
     myPlayer = new HumanPlayer();
 
     // game loop isn't being used for Assignment 5
@@ -36,13 +37,25 @@ void GameInstance::printInstructions()
     // std::cout << "Press 'v' to pick spock" << std::endl;
 }
 
+void GameInstance::setCpu(char choice)
+{
+    cpu = new ComputerPlayer(choice);
+}
+
 bool GameInstance::isValidHand(char key)
 {
     if (myPlayer->isHand(key)) return true;
     else return false;
 }
 
-void GameInstance::updateScore(Hands::handType winner)
+void GameInstance::resetStats()
+{
+    myPlayer->resetTies();
+    myPlayer->resetWins();
+    cpu->resetWins();
+}
+
+char GameInstance::updateScore(Hands::handType winner)
 {
     if (winner == Hands::tie)
     {
@@ -50,6 +63,7 @@ void GameInstance::updateScore(Hands::handType winner)
         std::cout << "" << std::endl;
         myPlayer->setScore(0);
         cpu->setScore(0);
+        return 't';
     }
     else if (myPlayer->getHand() == winner)
     {
@@ -58,6 +72,7 @@ void GameInstance::updateScore(Hands::handType winner)
         // increase player score by 1, decrease CPU score by 1
         myPlayer->setScore(1);
         cpu->setScore(-1);
+        return 'h';
     }
     else
     {
@@ -66,6 +81,7 @@ void GameInstance::updateScore(Hands::handType winner)
         // decrease player score by 1, increase CPU score by 1
         myPlayer->setScore(-1);
         cpu->setScore(1);
+        return 'c';
     }
     // myPlayer->getScore();
     // cpu->getScore();
@@ -76,19 +92,18 @@ std::string GameInstance::recordHand(char a, int patternSize)
     
     if (pattern.length() == patternSize)
     {
-        
-        std::string temp = pattern;
         cpu->toTextFile(pattern);
 
-        // clear the pattern
-        pattern = "";
-        return temp;
+        // erase first two chars in the string
+        pattern = pattern.erase(0, 2);
+        std::cout << pattern << " with 3" << std::endl;
     }
     pattern += a;
-    
     return pattern;
-    }
+}
 
+// not in use anymore
+/*
 void GameInstance::startGameLoop()
 {
     std::cout << "Game Loop Started" << std::endl;
@@ -104,7 +119,7 @@ void GameInstance::startGameLoop()
     do
     {
         setRoundCount();
-        if(getRoundCount() == 21)
+        if(getRoundCount() == getRoundMax() + 1)
         {
             std::cout << "Game Over!" << std::endl;
             myPlayer->getScore();
@@ -151,6 +166,7 @@ void GameInstance::startGameLoop()
     } while (!quit);
     std::cout << "You have now quit the game" << std::endl;
 }
+*/
 
 /* To DO
 

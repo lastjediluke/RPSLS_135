@@ -8,7 +8,7 @@ bool ButtonDemo::OnInit()
 {
     if (!wxApp::OnInit()) return false;
 
-    DemoFrame *frame = new DemoFrame("Button Demo");
+    DemoFrame *frame = new DemoFrame("Rock Paper Scissors");
     frame->Show(true);
 
     return true;

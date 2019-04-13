@@ -110,5 +110,6 @@ void DemoFrame::on_rounds(wxCommandEvent& event)
     }
 
     // verification pop-up + OK button
-	wxMessageBox(msg, wxT("Number of rounds"), wxOK | wxICON_INFORMATION, this);
+
+	// wxMessageBox(msg, wxT("Number of rounds"), wxOK | wxICON_INFORMATION, this);
 }

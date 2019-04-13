@@ -25,7 +25,7 @@ void ButtonPanel::init()
     ML_button       = new wxButton(chooser_panel, wxID_ANY,
                                              "Machine Learning");
     rand_button     = new wxButton(chooser_panel, wxID_ANY,
-                                             "Rand");
+                                             "Random");
     ML_button->Bind(wxEVT_BUTTON, &ButtonPanel::on_ML, this);
     rand_button->Bind(wxEVT_BUTTON, &ButtonPanel::on_rand, this);
 
@@ -76,8 +76,8 @@ void ButtonPanel::init()
     wxStaticText *chosen_text = new wxStaticText(chosen_panel, wxID_ANY, "Human Chooses:");
     wxStaticText *round_text = new wxStaticText(chosen_panel, wxID_ANY, "Round:");
     wxStaticText *computer_title = new wxStaticText(computer_panel, wxID_ANY, "Computer");
-    wxStaticText *humanPrediction_title = new wxStaticText(computer_panel, wxID_ANY, "Predicted Choice:");
-    wxStaticText *computerNextPick_title = new wxStaticText(computer_panel, wxID_ANY, "Computer Picks:");
+    wxStaticText *humanPrediction_title = new wxStaticText(computer_panel, wxID_ANY, "Computer Predicted:");
+    wxStaticText *computerNextPick_title = new wxStaticText(computer_panel, wxID_ANY, "Computer Chooses:");
     wxStaticText *winner_title = new wxStaticText(winner_panel, wxID_ANY, "Winner:");
     wxStaticText *stats_title = new wxStaticText(stats_panel, wxID_ANY, "STATS");
     wxStaticText *humanWins_title = new wxStaticText(stats_panel, wxID_ANY, "Human Wins:");
@@ -91,7 +91,14 @@ void ButtonPanel::init()
     chosen_panel->SetSizer(chosen_sizer);
 
     // Round Counter
-    round_counter_text = new wxStaticText(chosen_panel, wxID_ANY, "1");
+
+    //Not sure why this doesn't declare 20 needa fix later
+    wxString totalR(round_count_to_wxString(getRoundMax()));
+    wxString of (" of ");
+    wxString round1("1"); 
+    round1 += of;
+    round1 += totalR;
+    round_counter_text = new wxStaticText(chosen_panel, wxID_ANY, "1 of 20");
     chosen_sizer->Add(round_text, 0, wxALIGN_RIGHT, 0);
     chosen_sizer->Add(round_counter_text, 0, 0, 0);
     chosen_panel->SetSizer(chosen_sizer);
@@ -177,6 +184,7 @@ void ButtonPanel::on_ML(wxCommandEvent& event)
 void ButtonPanel::on_rand(wxCommandEvent& event)
 {
     chooser_panel->Hide();
+    disablePrediction = true;
     game->setCpu('r');
     show_game();
 }
@@ -254,11 +262,16 @@ void ButtonPanel::update_button_choice_text(const Choice choice)
 
 void ButtonPanel::update_round_counter_text(Round_count round_count)
 {
-    round_counter_text->SetLabelText(round_count_to_wxString(round_count));
+    wxString totalR(round_count_to_wxString(getRoundMax()));
+    wxString of (" of ");
+    wxString roundStat (round_count_to_wxString(round_count)); 
+    roundStat += of;
+    roundStat += totalR;
+    round_counter_text->SetLabelText(roundStat);
 }
 
 void ButtonPanel::updatePredictions(char p)
-{
+{   
     if (p == 'r')
     {
         humanPrediction_text->SetLabelText("Scissors");
@@ -274,11 +287,15 @@ void ButtonPanel::updatePredictions(char p)
         humanPrediction_text->SetLabelText("Paper");
         computerNextPick_text->SetLabelText("Scissors");
     }
-    else
+
+    else 
     {
         humanPrediction_text->SetLabelText("IDK");
         computerNextPick_text->SetLabelText("Random");
     } 
+    if(disablePrediction){
+        humanPrediction_text->SetLabelText("");
+    }
 }
 
 void ButtonPanel::update_stats_text(char wtl)

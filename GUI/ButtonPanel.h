@@ -94,6 +94,9 @@ private:
 
     // Luke
     int roundMax;
+
+    //Derick
+    bool disablePrediction = false;
     
 
     /**

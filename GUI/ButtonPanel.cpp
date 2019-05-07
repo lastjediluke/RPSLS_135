@@ -38,8 +38,6 @@ void ButtonPanel::init()
 
     sizer->Add(chooser_panel, 0, wxALIGN_CENTER, 0);
 
-
-
     button_panel = new wxPanel(this, wxID_ANY);
     wxSizer *button_sizer = new wxBoxSizer(wxHORIZONTAL);;
     wxStaticText *choose_text = new wxStaticText(button_panel, wxID_ANY,
@@ -176,7 +174,6 @@ void ButtonPanel::on_ML(wxCommandEvent& event)
 {
     chooser_panel->Hide();
     game->setCpu('m');
-    
     //init();
     show_game();
 }
@@ -226,7 +223,6 @@ void ButtonPanel::update_button_choice_text(const Choice choice)
         computerWins_text->SetLabelText("0");
         ties_text->SetLabelText("0");
     }
-
     button_chosen_text->SetLabelText(choice_to_wxString(choice));
     char cpuChar = game->getCpu()->setHand(getPattern, 5, 'm');
     game->setRoundCount();

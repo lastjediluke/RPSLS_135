@@ -1,0 +1,1 @@
+g++ -std=c++11 `wx-config --cxxflags` -o out *.cpp `wx-config --libs`

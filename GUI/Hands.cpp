@@ -3,7 +3,21 @@
 #include <stdio.h>   
 #include "Hands.h"  
 
-
+Hands *Hands::make_hand(std::string which)
+{
+    switch (which){
+        case "rock":
+            return new Rock;
+        case "paper":
+            return new Paper;
+        case "scissors":
+            return new Scissors;
+        case "lizard":
+            return new Lizard;
+        case "Spock":
+            return new Spock;
+    }
+}
 
 void Hands::setHand(char h)
 {
